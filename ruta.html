@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevPath - Ruta de Aprendizaje</title>
+    <link rel="stylesheet" href="styles/rutaStyle.css">
+</head>
+<body>
+    <div class="container">
+        <div class="roadmap-header">
+            <div class="roadmap-title">
+                <h1>Ruta de Aprendizaje</h1>
+                <p>Front-End Developer - Tu camino hacia el éxito</p>
+            </div>
+            <div class="roadmap-icon">🌐</div>
+        </div>
+
+        <div class="filters">
+            <div class="filter-buttons">
+                <button class="filter-btn active">Todas las tecnologías</button>
+                <button class="filter-btn">Básico</button>
+                <button class="filter-btn">Intermedio</button>
+                <button class="filter-btn">Avanzado</button>
+            </div>
+        </div>
+
+        <div class="technologies-grid">
+            <div class="tech-card">
+                <div class="tech-header">
+                    <span class="tech-name">HTML5</span>
+                    <span class="tech-level basic">Básico</span>
+                </div>
+                <div class="tech-category">Fundamentos</div>
+                <div class="progress-bar-tech">
+                    <div class="progress-fill-tech basic"></div>
+                </div>
+            </div>
+
+            <div class="tech-card">
+                <div class="tech-header">
+                    <span class="tech-name">CSS3 / Sass</span>
+                    <span class="tech-level basic">Básico</span>
+                </div>
+                <div class="tech-category">Estilos</div>
+                <div class="progress-bar-tech">
+                    <div class="progress-fill-tech basic"></div>
+                </div>
+            </div>
+
+            <div class="tech-card">
+                <div class="tech-header">
+                    <span class="tech-name">JavaScript ES6+</span>
+                    <span class="tech-level intermediate">Intermedio</span>
+                </div>
+                <div class="tech-category">Programación</div>
+                <div class="progress-bar-tech">
+                    <div class="progress-fill-tech intermediate"></div>
+                </div>
+            </div>
+
+            <div class="tech-card">
+                <div class="tech-header">
+                    <span class="tech-name">React.js</span>
+                    <span class="tech-level intermediate">Intermedio</span>
+                </div>
+                <div class="tech-category">Framework</div>
+                <div class="progress-bar-tech">
+                    <div class="progress-fill-tech intermediate"></div>
+                </div>
+            </div>
+
+            <div class="tech-card">
+                <div class="tech-header">
+                    <span class="tech-name">Tailwind CSS</span>
+                    <span class="tech-level basic">Básico</span>
+                </div>
+                <div class="tech-category">Framework CSS</div>
+                <div class="progress-bar-tech">
+                    <div class="progress-fill-tech basic"></div>
+                </div>
+            </div>
+
+            <div class="tech-card">
+                <div class="tech-header">
+                    <span class="tech-name">Git & GitHub</span>
+                    <span class="tech-level basic">Básico</span>
+                </div>
+                <div class="tech-category">Control de versiones</div>
+                <div class="progress-bar-tech">
+                    <div class="progress-fill-tech basic"></div>
+                </div>
+            </div>
+
+            <div class="tech-card">
+                <div class="tech-header">
+                    <span class="tech-name">Webpack / Vite</span>
+                    <span class="tech-level intermediate">Intermedio</span>
+                </div>
+                <div class="tech-category">Build Tools</div>
+                <div class="progress-bar-tech">
+                    <div class="progress-fill-tech intermediate"></div>
+                </div>
+            </div>
+
+            <div class="tech-card">
+                <div class="tech-header">
+                    <span class="tech-name">TypeScript</span>
+                    <span class="tech-level advanced">Avanzado</span>
+                </div>
+                <div class="tech-category">Programación</div>
+                <div class="progress-bar-tech">
+                    <div class="progress-fill-tech advanced"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="action-card">
+            <h2>¿Listo para comenzar tu jornada?</h2>
+            <p>Sigue esta ruta paso a paso y conviértete en un Front-End Developer exitoso. Cada tecnología te acerca más a tu objetivo profesional.</p>
+            <div class="action-buttons">
+                <a href="cuestionario.html" class="btn btn-secondary">Hacer Nuevo Cuestionario</a>
+                <a href="recomendacion.html" class="btn btn-primary">Ver Recomendación</a>
+            </div>
+
+            <!-- Enlaces de navegación para demo -->
+            <div class="demo-nav">
+                <p>Vista previa de pantallas:</p>
+                <div>
+                    <a href="login.html">Login</a>
+                    <a href="cuestionario.html">Cuestionario</a>
+                    <a href="recomendacion.html">Recomendación</a>
+                    <a href="ruta.html" class="active">Ruta</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Funcionalidad básica para los filtros
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const techCards = document.querySelectorAll('.tech-card');
+            
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remover clase active de todos los botones
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    // Agregar clase active al botón clickeado
+                    this.classList.add('active');
+                    
+                    const filter = this.textContent.toLowerCase();
+                    
+                    // Mostrar/ocultar tarjetas basado en el filtro
+                    techCards.forEach(card => {
+                        const level = card.querySelector('.tech-level');
+                        const levelText = level.textContent.toLowerCase();
+                        
+                        if (filter === 'todas las tecnologías' || levelText === filter) {
+                            card.style.display = 'block';
+                            card.style.opacity = '1';
+                        } else {
+                            card.style.opacity = '0.3';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
