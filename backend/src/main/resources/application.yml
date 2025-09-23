@@ -1,16 +1,15 @@
-# application.yml
+# application.yml - PERFECTO PARA AMBOS ENTORNOS
 spring:
   application:
     name: devpath-backend
 
-  # Configuración de Base de Datos
+  # DESARROLLO LOCAL (default profile)
   datasource:
     url: jdbc:h2:mem:devpathdb
     driverClassName: org.h2.Driver
     username: sa
     password: ""
     
-  # JPA/Hibernate
   jpa:
     hibernate:
       ddl-auto: create-drop
@@ -19,35 +18,31 @@ spring:
       hibernate:
         format_sql: true
         
-  # H2 Console (solo desarrollo)
   h2:
     console:
       enabled: true
       path: /h2-console
 
-# JWT Configuration
 jwt:
   secret: "ZGV2cGF0aC1zZWNyZXQta2V5LTIwMjQtbXV5LXNlZ3VyYS1wYXJhLWRlc2Fycm9sbG8="
-  expiration: 86400000 # 24 horas en millisegundos
+  expiration: 86400000
 
-# Server Configuration  
 server:
   port: 8080
   servlet:
-    context-path: /api
+    context-path: /api  # CAMBIO: quitar en producción
 
-# Logging
 logging:
   level:
     com.devpath: DEBUG
     org.springframework.security: DEBUG
 
 ---
-# PERFIL DE PRODUCCIÓN - SINTAXIS CORREGIDA
+# PRODUCCIÓN (perfil prod)
 spring:
   config:
     activate:
-      on-profile: prod  # CAMBIO: nueva sintaxis
+      on-profile: prod
   datasource:
     url: ${DATABASE_URL}
     username: ${DATABASE_USER}  
@@ -57,9 +52,20 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: false
+    database-platform: org.hibernate.dialect.MySQLDialect
   h2:
     console:
       enabled: false
 
+jwt:
+  secret: ${JWT_SECRET}
+
 server:
   port: ${PORT:8080}
+  servlet:
+    context-path: /  # SIN /api en producción
+
+logging:
+  level:
+    com.devpath: INFO
+    root: INFO
