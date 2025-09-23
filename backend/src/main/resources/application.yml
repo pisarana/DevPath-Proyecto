@@ -1,0 +1,65 @@
+# application.yml
+spring:
+  application:
+    name: devpath-backend
+
+  # Configuración de Base de Datos
+  datasource:
+    url: jdbc:h2:mem:devpathdb
+    driverClassName: org.h2.Driver
+    username: sa
+    password: ""
+    
+  # JPA/Hibernate
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        
+  # H2 Console (solo desarrollo)
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+# JWT Configuration
+jwt:
+  secret: "ZGV2cGF0aC1zZWNyZXQta2V5LTIwMjQtbXV5LXNlZ3VyYS1wYXJhLWRlc2Fycm9sbG8="
+  expiration: 86400000 # 24 horas en millisegundos
+
+# Server Configuration  
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+# Logging
+logging:
+  level:
+    com.devpath: DEBUG
+    org.springframework.security: DEBUG
+
+---
+# PERFIL DE PRODUCCIÓN - SINTAXIS CORREGIDA
+spring:
+  config:
+    activate:
+      on-profile: prod  # CAMBIO: nueva sintaxis
+  datasource:
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USER}  
+    password: ${DATABASE_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+  h2:
+    console:
+      enabled: false
+
+server:
+  port: ${PORT:8080}

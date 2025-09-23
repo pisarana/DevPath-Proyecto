@@ -14,33 +14,71 @@
             <p>Encuentra tu especialización ideal</p>
         </div>
         
-        <form>
+        <!-- LOGIN FORM -->
+        <form id="loginForm" style="display: block;">
             <div class="input-group">
-                <input type="em                       ail" class="input-field" placeholder="Correo electrónico" required>
+                <input type="email" class="input-field" placeholder="Correo electrónico" required>
             </div>
             <div class="input-group">
                 <input type="password" class="input-field" placeholder="Contraseña" required>
             </div>
             <div class="input-group">
-                <a href="cuestionario.html" class="btn btn-primary">
+                <button type="submit" class="btn btn-primary">
                     Iniciar Sesión
-                </a>
-                <a href="cuestionario.html" class="btn btn-secondary">
-                    Acceso Demo
-                </a>
+                </button>
+                <button type="button" onclick="showRegisterForm()" class="btn btn-secondary">
+                    Registrarse
+                </button>
             </div>
+            <div id="error-message" style="color: #ff6b6b; text-align: center; margin-top: 10px; display: none;"></div>
         </form>
 
-        <!-- Enlaces de navegación para demo -->
+        <!-- REGISTER FORM (OCULTO INICIALMENTE) -->
+        <form id="registerForm" style="display: none;">
+            <div class="input-group">
+                <input type="text" class="input-field" placeholder="Nombre completo" required>
+            </div>
+            <div class="input-group">
+                <input type="email" class="input-field" placeholder="Correo electrónico" required>
+            </div>
+            <div class="input-group">
+                <input type="password" class="input-field" placeholder="Contraseña" required>
+            </div>
+            <div class="input-group">
+                <input type="password" class="input-field" placeholder="Confirmar contraseña" required>
+            </div>
+            <div class="input-group">
+                <button type="submit" class="btn btn-primary">
+                    Crear Cuenta
+                </button>
+                <button type="button" onclick="showLoginForm()" class="btn btn-secondary">
+                    Ya tengo cuenta
+                </button>
+            </div>
+            <div id="register-error-message" style="color: #ff6b6b; text-align: center; margin-top: 10px; display: none;"></div>
+        </form>
+
+        <!-- Enlaces de navegación BLOQUEADOS desde login -->
         <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.2);">
             <p style="color: rgba(255,255,255,0.6); font-size: 14px; margin-bottom: 10px;">Vista previa de pantallas:</p>
             <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
                 <a href="index.html" style="color: #00d4ff; font-size: 12px; text-decoration: none;">Login</a>
-                <a href="cuestionario.html" style="color: rgba(255,255,255,0.6); font-size: 12px; text-decoration: none;">Cuestionario</a>
-                <a href="recomendacion.html" style="color: rgba(255,255,255,0.6); font-size: 12px; text-decoration: none;">Recomendación</a>
-                <a href="ruta.html" style="color: rgba(255,255,255,0.6); font-size: 12px; text-decoration: none;">Ruta</a>
+                <a href="#" onclick="blockNavigation('cuestionario.html')" style="color: rgba(255,255,255,0.6); font-size: 12px; text-decoration: none; cursor: pointer;">Cuestionario</a>
+                <a href="#" onclick="blockNavigation('recomendacion.html')" style="color: rgba(255,255,255,0.6); font-size: 12px; text-decoration: none; cursor: pointer;">Recomendación</a>
+                <a href="#" onclick="blockNavigation('ruta.html')" style="color: rgba(255,255,255,0.6); font-size: 12px; text-decoration: none; cursor: pointer;">Ruta</a>
             </div>
+            <p style="color: rgba(255,255,255,0.4); font-size: 11px; margin-top: 8px; font-style: italic;">
+                🔒 Debes iniciar sesión para acceder a estas páginas
+            </p>
         </div>
     </div>
+
+    <script src="js/auth.js"></script>
+    
+    <script>
+    function blockNavigation(page) {
+        alert('❌ Acceso denegado\n\nDebes iniciar sesión para acceder a ' + page.replace('.html', ''));
+    }
+    </script>
 </body>
 </html>

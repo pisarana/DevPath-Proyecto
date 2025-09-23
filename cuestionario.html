@@ -13,6 +13,24 @@
         <div class="header">
             <h1>Cuestionario de Orientación</h1>
             <p>Pregunta 3 de 5</p>
+
+            <!-- BOTÓN DE LOGOUT VISIBLE -->
+            <div style="position: absolute; top: 20px; right: 20px;">
+                <button onclick="logoutUser()" style="
+                    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); 
+                    border: none;
+                    color: white; 
+                    padding: 8px 16px; 
+                    border-radius: 20px; 
+                    cursor: pointer;
+                    font-size: 12px;
+                    font-weight: 600;
+                    transition: all 0.3s ease;
+                    box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+                " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                    🚪 Salir
+                </button>
+            </div>
         </div>
 
         <div class="progress-bar">
@@ -24,37 +42,60 @@
             <h2 class="question-title">¿Qué herramientas te llaman más la atención?</h2>
 
             <div class="options">
-                <a href="recomendacion.html" class="option">
-                    <span>HTML, CSS, JavaScript, React</span>
-                    <span class="option-arrow">→</span>
-                </a>
-                <a href="recomendacion.html" class="option">
-                    <span>Java, Python, bases de datos, APIs</span>
-                    <span class="option-arrow">→</span>
-                </a>
-                <a href="recomendacion.html" class="option">
-                    <span>Un poco de todo</span>
-                    <span class="option-arrow">→</span>
-                </a>
+                <!-- Las opciones se generarán automáticamente por JavaScript -->
             </div>
 
             <div class="navigation">
-                <a href="index.html" class="btn btn-secondary">← Anterior</a>
+                <a href="#" onclick="confirmLogout()" class="btn btn-secondary">← Volver al Login</a>
                 <span></span>
             </div>
 
-            <!-- Enlaces de navegación para demo -->
+            <!-- Enlaces de navegación PROTEGIDOS -->
             <div class="demo-nav">
-                <p>Vista previa de pantallas:</p>
+                <p>Navegación (solo con sesión activa):</p>
                 <div>
-                    <a href="index.html">Login</a>
+                    <a href="#" onclick="confirmLogout()">Login</a>
                     <a href="cuestionario.html" class="active">Cuestionario</a>
-                    <a href="recomendacion.html">Recomendación</a>
-                    <a href="ruta.html">Ruta</a>
+                    <a href="#" onclick="navigateProtected('recomendacion.html')">Recomendación</a>
+                    <a href="#" onclick="navigateProtected('ruta.html')">Ruta</a>
                 </div>
             </div>
         </div>
     </div>
+
+    <script src="js/session.js"></script>
+    <script src="js/quiz.js"></script>
+
+    <script>
+        // FUNCIONES GLOBALES PARA LOGOUT
+        function logoutUser() {
+            if (confirm('¿Estás seguro de que deseas cerrar sesión?')) {
+                // Limpiar almacenamiento
+                sessionStorage.clear();
+                localStorage.removeItem('selected_track');
+
+                // Mensaje de confirmación
+                alert('✅ Sesión cerrada correctamente');
+
+                // Redirigir al login
+                window.location.replace('index.html');
+            }
+        }
+
+        function confirmLogout() {
+            logoutUser();
+        }
+
+        function navigateProtected(page) {
+            const session = sessionStorage.getItem('user_session');
+            if (session) {
+                window.location.href = page;
+            } else {
+                alert('Sesión expirada. Redirigiendo al login...');
+                window.location.replace('index.html');
+            }
+        }
+    </script>
 </body>
 
 </html>

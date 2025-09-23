@@ -1,21 +1,38 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DevPath - Recomendación</title>
     <link rel="stylesheet" href="styles/recomendacionStyle.css">
-
 </head>
-
 <body>
     <div class="container">
         <div class="recommendation-header">
             <h1>¡Tu Recomendación Está Lista!</h1>
             <p>Basado en tus respuestas, hemos encontrado tu especialización ideal en desarrollo web</p>
+            
+            <!-- BOTÓN DE LOGOUT VISIBLE -->
+            <div style="position: absolute; top: 20px; right: 20px;">
+                <button onclick="logoutUser()" style="
+                    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); 
+                    border: none;
+                    color: white; 
+                    padding: 8px 16px; 
+                    border-radius: 20px; 
+                    cursor: pointer;
+                    font-size: 12px;
+                    font-weight: 600;
+                    transition: all 0.3s ease;
+                    box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+                " onmouseover="this.style.transform='scale(1.05)'" 
+                   onmouseout="this.style.transform='scale(1)'">
+                    🚪 Salir
+                </button>
+            </div>
         </div>
 
+        <!-- TU CONTENIDO EXISTENTE DE RECOMENDACION AQUÍ -->
         <div class="recommendation-card">
             <div class="specialization-icon">🌐</div>
             <h2 class="specialization-title">Front-End Developer</h2>
@@ -52,18 +69,46 @@
                 </a>
             </div>
 
-            <!-- Enlaces de navegación para demo -->
+            <!-- Enlaces de navegación PROTEGIDOS -->
             <div class="demo-nav">
-                <p>Vista previa de pantallas:</p>
+                <p>Navegación (solo con sesión activa):</p>
                 <div>
-                    <a href="index.html">Login</a>
-                    <a href="cuestionario.html">Cuestionario</a>
+                    <a href="#" onclick="confirmLogout()">Login</a>
+                    <a href="#" onclick="navigateProtected('cuestionario.html')">Cuestionario</a>
                     <a href="recomendacion.html" class="active">Recomendación</a>
-                    <a href="ruta.html">Ruta</a>
+                    <a href="#" onclick="navigateProtected('ruta.html')">Ruta</a>
                 </div>
             </div>
         </div>
     </div>
-</body>
 
+    <script src="js/session.js"></script>
+    <script src="js/recommend.js"></script>
+    
+    <script>
+    // FUNCIONES GLOBALES PARA LOGOUT
+    function logoutUser() {
+        if (confirm('¿Estás seguro de que deseas cerrar sesión?')) {
+            sessionStorage.clear();
+            localStorage.removeItem('selected_track');
+            alert('✅ Sesión cerrada correctamente');
+            window.location.replace('index.html');
+        }
+    }
+    
+    function confirmLogout() {
+        logoutUser();
+    }
+    
+    function navigateProtected(page) {
+        const session = sessionStorage.getItem('user_session');
+        if (session) {
+            window.location.href = page;
+        } else {
+            alert('Sesión expirada. Redirigiendo al login...');
+            window.location.replace('index.html');
+        }
+    }
+    </script>
+</body>
 </html>
