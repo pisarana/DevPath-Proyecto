@@ -22,6 +22,8 @@ spring:
     console:
       enabled: true
       path: /h2-console
+      settings:
+        web-allow-others: true  # Para Docker
 
 jwt:
   secret: "ZGV2cGF0aC1zZWNyZXQta2V5LTIwMjQtbXV5LXNlZ3VyYS1wYXJhLWRlc2Fycm9sbG8="
@@ -30,7 +32,7 @@ jwt:
 server:
   port: 8080
   servlet:
-    context-path: /api  # CAMBIO: quitar en producción
+    context-path: /api
 
 logging:
   level:
@@ -38,24 +40,27 @@ logging:
     org.springframework.security: DEBUG
 
 ---
-# PRODUCCIÓN (perfil prod)
+# PRODUCCIÓN (perfil prod) - TAMBIÉN H2
 spring:
   config:
     activate:
       on-profile: prod
+      
+  # MISMA BD H2 PARA SIMPLICIDAD
   datasource:
-    url: ${DATABASE_URL}
-    username: ${DATABASE_USER}  
-    password: ${DATABASE_PASSWORD}
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:h2:mem:devpathdb
+    driverClassName: org.h2.Driver
+    username: sa
+    password: ""
+    
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
     show-sql: false
-    database-platform: org.hibernate.dialect.MySQLDialect
+    
   h2:
     console:
-      enabled: false
+      enabled: false  # Deshabilitado por seguridad
 
 jwt:
   secret: ${JWT_SECRET}
