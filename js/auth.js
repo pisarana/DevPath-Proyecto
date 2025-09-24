@@ -1,16 +1,18 @@
 // CONFIGURACIÓN API
-const API_BASE_URL = 'http://localhost:8080/api';
-
+const API_BASE_URL = window.location.hostname === 'localhost'
+    ? 'http://localhost:8080/api'  // Desarrollo
+    : 'https://devpath-proyecto.onrender.com';  // Producción
+    
 document.addEventListener('DOMContentLoaded', function () {
     // LIMPIAR COMPLETAMENTE al cargar login
     sessionStorage.clear();
 
     // Inicializar usuarios demo como fallback
     initializeDemoUsers();
-    
+
     // Login form
     document.getElementById('loginForm').addEventListener('submit', handleLogin);
-    
+
     // Register form  
     document.getElementById('registerForm').addEventListener('submit', handleRegister);
 });
@@ -32,25 +34,25 @@ function initializeDemoUsers() {
 // LOGIN CON BACKEND
 async function handleLogin(e) {
     e.preventDefault();
-    
+
     const form = e.target;
     const email = form.querySelector('input[type="email"]').value.trim();
     const password = form.querySelector('input[type="password"]').value.trim();
-    
+
     hideError('error-message');
-    
+
     // Validación básica
     if (!email || !password) {
         showError('error-message', 'Por favor completa todos los campos');
         return;
     }
-    
+
     // Validar formato de email
     if (!isValidEmail(email)) {
         showError('error-message', 'Por favor ingresa un email válido');
         return;
     }
-    
+
     try {
         // LLAMAR AL BACKEND
         const response = await fetch(`${API_BASE_URL}/auth/login`, {
@@ -63,9 +65,9 @@ async function handleLogin(e) {
                 password: password
             })
         });
-        
+
         const data = await response.json();
-        
+
         if (response.ok && data.token) {
             // Login exitoso con backend
             const userData = {
@@ -75,9 +77,9 @@ async function handleLogin(e) {
                 loginTime: data.loginTime || new Date().toISOString(),
                 source: 'backend'
             };
-            
+
             sessionStorage.setItem('user_session', JSON.stringify(userData));
-            
+
             showSuccess('error-message', 'Login exitoso! Redirigiendo...');
             setTimeout(() => {
                 window.location.href = 'cuestionario.html';
@@ -86,7 +88,7 @@ async function handleLogin(e) {
             // Error del backend, intentar con localStorage como fallback
             handleLoginFallback(email, password);
         }
-        
+
     } catch (error) {
         console.error('Error conectando al backend:', error);
         // Fallback a localStorage si no hay conexión
@@ -97,10 +99,10 @@ async function handleLogin(e) {
 // FALLBACK A LOCALSTORAGE
 function handleLoginFallback(email, password) {
     console.log('Usando fallback localStorage');
-    
+
     const users = JSON.parse(localStorage.getItem('devpath_users') || '[]');
     const user = users.find(u => u.email === email && u.password === password);
-    
+
     if (user) {
         const userData = {
             email: user.email,
@@ -109,9 +111,9 @@ function handleLoginFallback(email, password) {
             token: 'demo_token_' + Date.now(),
             source: 'localStorage'
         };
-        
+
         sessionStorage.setItem('user_session', JSON.stringify(userData));
-        
+
         showSuccess('error-message', 'Login exitoso (modo local)! Redirigiendo...');
         setTimeout(() => {
             window.location.href = 'cuestionario.html';
@@ -124,36 +126,36 @@ function handleLoginFallback(email, password) {
 // REGISTRO CON BACKEND
 async function handleRegister(e) {
     e.preventDefault();
-    
+
     const form = e.target;
     const nombre = form.querySelector('input[type="text"]').value.trim();
     const email = form.querySelector('input[type="email"]').value.trim();
     const password = form.querySelectorAll('input[type="password"]')[0].value.trim();
     const confirmPassword = form.querySelectorAll('input[type="password"]')[1].value.trim();
-    
+
     hideError('register-error-message');
-    
+
     // Validaciones
     if (!nombre || !email || !password || !confirmPassword) {
         showError('register-error-message', 'Por favor completa todos los campos');
         return;
     }
-    
+
     if (!isValidEmail(email)) {
         showError('register-error-message', 'Por favor ingresa un email válido');
         return;
     }
-    
+
     if (password !== confirmPassword) {
         showError('register-error-message', 'Las contraseñas no coinciden');
         return;
     }
-    
+
     if (password.length < 6) {
         showError('register-error-message', 'La contraseña debe tener al menos 6 caracteres');
         return;
     }
-    
+
     try {
         // LLAMAR AL BACKEND
         const response = await fetch(`${API_BASE_URL}/auth/register`, {
@@ -167,9 +169,9 @@ async function handleRegister(e) {
                 password: password
             })
         });
-        
+
         const data = await response.json();
-        
+
         if (response.ok && data.token) {
             // Registro exitoso
             showSuccess('register-error-message', 'Cuenta creada exitosamente! Redirigiendo...');
@@ -181,7 +183,7 @@ async function handleRegister(e) {
         } else {
             showError('register-error-message', data.message || 'Error al registrar usuario');
         }
-        
+
     } catch (error) {
         console.error('Error conectando al backend:', error);
         // Fallback a localStorage
@@ -192,21 +194,21 @@ async function handleRegister(e) {
 // FALLBACK REGISTRO A LOCALSTORAGE
 function handleRegisterFallback(nombre, email, password) {
     console.log('Usando fallback localStorage para registro');
-    
+
     const users = JSON.parse(localStorage.getItem('devpath_users') || '[]');
     if (users.find(u => u.email === email)) {
         showError('register-error-message', 'Ya existe una cuenta con este email');
         return;
     }
-    
+
     users.push({
         email: email,
         password: password,
         nombre: nombre
     });
-    
+
     localStorage.setItem('devpath_users', JSON.stringify(users));
-    
+
     showSuccess('register-error-message', 'Cuenta creada exitosamente (modo local)! Ahora puedes iniciar sesión');
     setTimeout(() => {
         showLoginForm();
@@ -239,7 +241,7 @@ function showError(elementId, message) {
     errorDiv.textContent = message;
     errorDiv.style.display = 'block';
     errorDiv.style.color = '#ff6b6b';
-    
+
     setTimeout(() => {
         hideError(elementId);
     }, 5000);
