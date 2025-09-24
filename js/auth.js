@@ -1,8 +1,8 @@
-// CONFIGURACIÓN API
+// CONFIGURACIÓN API DESA PROC
 const API_BASE_URL = window.location.hostname === 'localhost'
     ? 'http://localhost:8080/api'  // Desarrollo
     : 'https://devpath-proyecto.onrender.com';  // Producción
-    
+
 document.addEventListener('DOMContentLoaded', function () {
     // LIMPIAR COMPLETAMENTE al cargar login
     sessionStorage.clear();
