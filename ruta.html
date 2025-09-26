@@ -7,9 +7,10 @@
     <title>DevPath - Ruta de Aprendizaje</title>
     <link rel="stylesheet" href="styles/rutaStyle.css">
 </head>
+
 <header>
     <!-- BOTÓN DE LOGOUT VISIBLE -->
-    <div style="position: absolute; top: 20px; right: 20px;">
+    <div style="position: absolute; top: 20px; right: 20px; z-index: 1000;">
         <button onclick="logoutUser()" style="
         background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); 
         border: none;
@@ -25,125 +26,104 @@
             🚪 Salir
         </button>
     </div>
-
 </header>
 
 <body>
-    <div class="container">
+    <!-- LOADING SPINNER -->
+    <div id="loadingSpinner" class="loading-container">
+        <div class="loading-spinner"></div>
+        <p>Cargando tu ruta personalizada...</p>
+    </div>
+
+    <div class="container" id="mainContent" style="display: none;">
+        <!-- HEADER DINÁMICO -->
         <div class="roadmap-header">
             <div class="roadmap-title">
-                <h1>Ruta de Aprendizaje</h1>
-                <p>Front-End Developer - Tu camino hacia el éxito</p>
+                <h1 id="trackTitle">Ruta de Aprendizaje</h1>
+                <p id="trackDescription">Tu camino hacia el éxito</p>
+                <div class="track-stats">
+                    <span class="stat-item">
+                        <strong id="totalDuration">0</strong> semanas
+                    </span>
+                    <span class="stat-item">
+                        <strong id="totalPhases">5</strong> fases
+                    </span>
+                    <span class="stat-item">
+                        <strong id="totalProjects">15+</strong> proyectos
+                    </span>
+                </div>
             </div>
-            <div class="roadmap-icon">🌐</div>
+            <div class="roadmap-icon" id="trackIcon">🌐</div>
         </div>
 
+        <!-- FILTROS DE FASES -->
         <div class="filters">
             <div class="filter-buttons">
-                <button class="filter-btn active">Todas las tecnologías</button>
-                <button class="filter-btn">Básico</button>
-                <button class="filter-btn">Intermedio</button>
-                <button class="filter-btn">Avanzado</button>
+                <button class="filter-btn active" data-filter="all">Todas las fases</button>
+                <button class="filter-btn" data-filter="1">Fase 1: Fundamentos</button>
+                <button class="filter-btn" data-filter="2">Fase 2: Frameworks</button>
+                <button class="filter-btn" data-filter="3">Fase 3: Herramientas</button>
+                <button class="filter-btn" data-filter="4">Fase 4: Avanzado</button>
+                <button class="filter-btn" data-filter="5">Fase 5: Profesional</button>
             </div>
         </div>
 
-        <div class="technologies-grid">
-            <div class="tech-card">
-                <div class="tech-header">
-                    <span class="tech-name">HTML5</span>
-                    <span class="tech-level basic">Básico</span>
-                </div>
-                <div class="tech-category">Fundamentos</div>
-                <div class="progress-bar-tech">
-                    <div class="progress-fill-tech basic"></div>
-                </div>
-            </div>
+        <!-- FASES DINÁMICAS -->
+        <div class="phases-grid" id="phasesGrid">
+            <!-- LAS FASES SE GENERAN DINÁMICAMENTE -->
+        </div>
 
-            <div class="tech-card">
-                <div class="tech-header">
-                    <span class="tech-name">CSS3 / Sass</span>
-                    <span class="tech-level basic">Básico</span>
+        <!-- DETALLE DE FASE SELECCIONADA -->
+        <div class="phase-detail" id="phaseDetail" style="display: none;">
+            <div class="phase-detail-content">
+                <h3 id="phaseDetailTitle">Fase seleccionada</h3>
+                <p id="phaseDetailDescription">Descripción de la fase</p>
+                
+                <div class="detail-sections">
+                    <div class="detail-section skills-section">
+                        <h4>🎯 Habilidades a desarrollar</h4>
+                        <ul id="skillsList"></ul>
+                    </div>
+                    
+                    <div class="detail-section resources-section">
+                        <h4>📚 Recursos recomendados</h4>
+                        <ul id="resourcesList"></ul>
+                    </div>
+                    
+                    <div class="detail-section projects-section">
+                        <h4>🚀 Proyectos a construir</h4>
+                        <ul id="projectsList"></ul>
+                    </div>
                 </div>
-                <div class="tech-category">Estilos</div>
-                <div class="progress-bar-tech">
-                    <div class="progress-fill-tech basic"></div>
-                </div>
-            </div>
 
-            <div class="tech-card">
-                <div class="tech-header">
-                    <span class="tech-name">JavaScript ES6+</span>
-                    <span class="tech-level intermediate">Intermedio</span>
-                </div>
-                <div class="tech-category">Programación</div>
-                <div class="progress-bar-tech">
-                    <div class="progress-fill-tech intermediate"></div>
-                </div>
-            </div>
-
-            <div class="tech-card">
-                <div class="tech-header">
-                    <span class="tech-name">React.js</span>
-                    <span class="tech-level intermediate">Intermedio</span>
-                </div>
-                <div class="tech-category">Framework</div>
-                <div class="progress-bar-tech">
-                    <div class="progress-fill-tech intermediate"></div>
-                </div>
-            </div>
-
-            <div class="tech-card">
-                <div class="tech-header">
-                    <span class="tech-name">Tailwind CSS</span>
-                    <span class="tech-level basic">Básico</span>
-                </div>
-                <div class="tech-category">Framework CSS</div>
-                <div class="progress-bar-tech">
-                    <div class="progress-fill-tech basic"></div>
-                </div>
-            </div>
-
-            <div class="tech-card">
-                <div class="tech-header">
-                    <span class="tech-name">Git & GitHub</span>
-                    <span class="tech-level basic">Básico</span>
-                </div>
-                <div class="tech-category">Control de versiones</div>
-                <div class="progress-bar-tech">
-                    <div class="progress-fill-tech basic"></div>
-                </div>
-            </div>
-
-            <div class="tech-card">
-                <div class="tech-header">
-                    <span class="tech-name">Webpack / Vite</span>
-                    <span class="tech-level intermediate">Intermedio</span>
-                </div>
-                <div class="tech-category">Build Tools</div>
-                <div class="progress-bar-tech">
-                    <div class="progress-fill-tech intermediate"></div>
-                </div>
-            </div>
-
-            <div class="tech-card">
-                <div class="tech-header">
-                    <span class="tech-name">TypeScript</span>
-                    <span class="tech-level advanced">Avanzado</span>
-                </div>
-                <div class="tech-category">Programación</div>
-                <div class="progress-bar-tech">
-                    <div class="progress-fill-tech advanced"></div>
+                <div class="detail-actions">
+                    <button class="btn btn-primary" onclick="startPhase()">
+                        🚀 Comenzar esta Fase
+                    </button>
+                    <button class="btn btn-secondary" onclick="closePhaseDetail()">
+                        ✕ Cerrar
+                    </button>
                 </div>
             </div>
         </div>
 
+        <!-- ACCIÓN FINAL -->
         <div class="action-card">
             <h2>¿Listo para comenzar tu jornada?</h2>
-            <p>Sigue esta ruta paso a paso y conviértete en un Front-End Developer exitoso. Cada tecnología te acerca
-                más a tu objetivo profesional.</p>
+            <p id="actionDescription">Sigue esta ruta paso a paso y conviértete en un desarrollador exitoso. Cada fase te acerca más a tu objetivo profesional.</p>
+            
             <div class="action-buttons">
-                <a href="cuestionario.html" class="btn btn-secondary">Hacer Nuevo Cuestionario</a>
-                <a href="recomendacion.html" class="btn btn-primary">Ver Recomendación</a>
+                <button class="btn btn-primary" onclick="startLearningPath()">
+                    🚀 Comenzar Mi Ruta
+                </button>
+                <button class="btn btn-secondary" onclick="downloadRoadmap()">
+                    📥 Descargar Ruta
+                </button>
+            </div>
+
+            <div class="secondary-actions">
+                <a href="cuestionario.html" class="btn-link">Hacer Nuevo Cuestionario</a>
+                <a href="recomendacion.html" class="btn-link">Ver Recomendación</a>
             </div>
 
             <!-- Enlaces de navegación PROTEGIDOS -->
@@ -156,90 +136,26 @@
                     <a href="#" onclick="navigateProtected('ruta.html')" class="active">Ruta</a>
                 </div>
             </div>
-
-            <script>
-                function confirmLogout() {
-                    if (confirm('¿Deseas cerrar sesión y volver al login?')) {
-                        logout();
-                    }
-                }
-
-                function navigateProtected(page) {
-                    const session = sessionStorage.getItem('user_session');
-                    if (session) {
-                        window.location.href = page;
-                    } else {
-                        alert('Sesión expirada. Redirigiendo al login...');
-                        window.location.replace('index.html');
-                    }
-                }
-            </script>
-
-
         </div>
     </div>
 
-    <!-- AGREGAR ESTE SCRIPT PRIMERO -->
+    <!-- ERROR STATE -->
+    <div id="errorState" class="error-container" style="display: none;">
+        <div class="error-content">
+            <h2>❌ Error al cargar la ruta</h2>
+            <p>No se pudo cargar tu ruta de aprendizaje personalizada.</p>
+            <button class="btn btn-primary" onclick="location.reload()">
+                🔄 Reintentar
+            </button>
+            <a href="recomendacion.html" class="btn btn-secondary">
+                ← Volver a Recomendación
+            </a>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
     <script src="js/sessions.js"></script>
-
-    <!-- MANTENER EL SCRIPT DE FILTROS -->
-    <script>
-        // Funcionalidad básica para los filtros
-        document.addEventListener('DOMContentLoaded', function () {
-            const filterBtns = document.querySelectorAll('.filter-btn');
-            const techCards = document.querySelectorAll('.tech-card');
-
-            filterBtns.forEach(btn => {
-                btn.addEventListener('click', function () {
-                    // Remover clase active de todos los botones
-                    filterBtns.forEach(b => b.classList.remove('active'));
-                    // Agregar clase active al botón clickeado
-                    this.classList.add('active');
-
-                    const filter = this.textContent.toLowerCase();
-
-                    // Mostrar/ocultar tarjetas basado en el filtro
-                    techCards.forEach(card => {
-                        const level = card.querySelector('.tech-level');
-                        const levelText = level.textContent.toLowerCase();
-
-                        if (filter === 'todas las tecnologías' || levelText === filter) {
-                            card.style.display = 'block';
-                            card.style.opacity = '1';
-                        } else {
-                            card.style.opacity = '0.3';
-                        }
-                    });
-                });
-            });
-        });
-    </script>
-    <script>
-        // FUNCIONES GLOBALES PARA LOGOUT
-        function logoutUser() {
-            if (confirm('¿Estás seguro de que deseas cerrar sesión?')) {
-                sessionStorage.clear();
-                localStorage.removeItem('selected_track');
-                alert('✅ Sesión cerrada correctamente');
-                window.location.replace('index.html');
-            }
-        }
-
-        function confirmLogout() {
-            logoutUser();
-        }
-
-        function navigateProtected(page) {
-            const session = sessionStorage.getItem('user_session');
-            if (session) {
-                window.location.href = page;
-            } else {
-                alert('Sesión expirada. Redirigiendo al login...');
-                window.location.replace('index.html');
-            }
-        }
-    </script>
-
+    <script src="js/roadmap.js"></script>
 </body>
 
 </html>

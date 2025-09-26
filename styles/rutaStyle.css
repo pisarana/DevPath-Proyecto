@@ -15,7 +15,49 @@ body {
     max-width: 1200px;
     margin: 0 auto;
 }
+/* MEJORAR EL RESALTADO DE FILTROS */
+.phase-card {
+    transition: all 0.3s ease !important;
+    border: 2px solid transparent;
+}
 
+.phase-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+}
+
+/* CUANDO ESTÁ FILTRADA (NO SELECCIONADA) */
+.phase-card.filtered {
+    border-color: #00d4ff;
+    box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
+}
+
+/* LOADING SPINNER */
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 50vh;
+    color: white;
+}
+
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top: 3px solid #00d4ff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* HEADER */
 .roadmap-header {
     display: flex;
     align-items: center;
@@ -33,6 +75,25 @@ body {
 .roadmap-title p {
     font-size: 18px;
     opacity: 0.8;
+    margin-bottom: 20px;
+}
+
+.track-stats {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.stat-item {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    backdrop-filter: blur(10px);
+}
+
+.stat-item strong {
+    color: #00d4ff;
 }
 
 .roadmap-icon {
@@ -46,8 +107,10 @@ body {
     font-size: 40px;
     color: white;
     box-shadow: 0 15px 30px rgba(52, 152, 219, 0.3);
+    flex-shrink: 0;
 }
 
+/* FILTERS */
 .filters {
     background: rgba(255, 255, 255, 0.05);
     border-radius: 15px;
@@ -87,97 +150,197 @@ body {
     color: white;
 }
 
-.technologies-grid {
+/* PHASES GRID */
+.phases-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 25px;
     margin-bottom: 40px;
 }
 
-.tech-card {
+.phase-card {
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
     border-radius: 15px;
     padding: 25px;
     border: 1px solid rgba(255, 255, 255, 0.2);
     transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
 }
 
-.tech-card:hover {
+.phase-card:hover {
     background: rgba(255, 255, 255, 0.15);
     transform: translateY(-5px);
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
 }
 
-.tech-header {
+.phase-card.selected {
+    background: rgba(0, 212, 255, 0.2);
+    border-color: #00d4ff;
+    box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+}
+
+.phase-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 15px;
 }
 
-.tech-name {
+.phase-number {
+    background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
     color: white;
-    font-size: 20px;
-    font-weight: 600;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 18px;
 }
 
-.tech-level {
+.phase-duration {
+    background: rgba(255, 255, 255, 0.2);
     padding: 5px 12px;
     border-radius: 15px;
     font-size: 12px;
+    color: white;
     font-weight: 600;
 }
 
-.tech-level.basic {
-    background: rgba(46, 204, 113, 0.2);
-    color: #2ecc71;
+.phase-title {
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
 }
 
-.tech-level.intermediate {
-    background: rgba(241, 196, 15, 0.2);
-    color: #f1c40f;
-}
-
-.tech-level.advanced {
-    background: rgba(231, 76, 60, 0.2);
-    color: #e74c3c;
-}
-
-.tech-category {
-    color: rgba(255, 255, 255, 0.7);
-    margin-bottom: 15px;
+.phase-description {
+    color: rgba(255, 255, 255, 0.8);
     font-size: 14px;
+    margin-bottom: 15px;
+    line-height: 1.5;
 }
 
-.progress-bar-tech {
+.phase-stats {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.phase-stat {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 5px 10px;
+    border-radius: 10px;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.9);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.phase-progress {
     background: rgba(255, 255, 255, 0.2);
-    height: 8px;
-    border-radius: 4px;
+    height: 6px;
+    border-radius: 3px;
     overflow: hidden;
 }
 
-.progress-fill-tech {
+.progress-fill {
+    background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
     height: 100%;
-    border-radius: 4px;
+    width: 0%;
+    border-radius: 3px;
     transition: width 0.3s ease;
 }
 
-.progress-fill-tech.basic {
-    background: #2ecc71;
-    width: 33%;
-}
-
-.progress-fill-tech.intermediate {
-    background: #f1c40f;
-    width: 66%;
-}
-
-.progress-fill-tech.advanced {
-    background: #e74c3c;
+/* PHASE DETAIL */
+.phase-detail {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
 }
 
+.phase-detail-content {
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 900px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.phase-detail-content h3 {
+    color: white;
+    font-size: 28px;
+    margin-bottom: 15px;
+}
+
+.phase-detail-content p {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 16px;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.detail-sections {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.detail-section {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    border-radius: 15px;
+    border-left: 4px solid #00d4ff;
+}
+
+.detail-section h4 {
+    color: #00d4ff;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+.detail-section ul {
+    list-style: none;
+}
+
+.detail-section li {
+    color: rgba(255, 255, 255, 0.9);
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 14px;
+}
+
+.detail-section li:last-child {
+    border-bottom: none;
+}
+
+.detail-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* ACTION CARD */
 .action-card {
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
@@ -207,8 +370,29 @@ body {
     flex-wrap: wrap;
     gap: 15px;
     justify-content: center;
+    margin-bottom: 20px;
 }
 
+.secondary-actions {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.btn-link {
+    color: #00d4ff;
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.btn-link:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+/* BUTTONS */
 .btn {
     padding: 15px 25px;
     border: none;
@@ -243,7 +427,37 @@ body {
     color: white;
 }
 
-/* Enlaces de navegación para demo */
+/* ERROR STATE */
+.error-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 70vh;
+    color: white;
+}
+
+.error-content {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 40px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    max-width: 500px;
+}
+
+.error-content h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #e74c3c;
+}
+
+.error-content p {
+    margin-bottom: 25px;
+    opacity: 0.8;
+}
+
+/* NAVIGATION */
 .demo-nav {
     text-align: center;
     margin-top: 40px;
@@ -283,6 +497,7 @@ body {
     background: rgba(255, 255, 255, 0.1);
 }
 
+/* RESPONSIVE */
 @media (max-width: 768px) {
     .container {
         padding: 10px;
@@ -298,7 +513,11 @@ body {
         font-size: 28px;
     }
 
-    .technologies-grid {
+    .track-stats {
+        justify-content: center;
+    }
+
+    .phases-grid {
         grid-template-columns: 1fr;
     }
 
@@ -314,5 +533,40 @@ body {
     .btn {
         width: 100%;
         max-width: 300px;
+    }
+
+    .phase-detail-content {
+        margin: 10px;
+        padding: 20px;
+    }
+
+    .detail-sections {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .detail-actions {
+        flex-direction: column;
+    }
+}
+
+/* HIDDEN ELEMENTS */
+.hidden {
+    display: none !important;
+}
+
+/* ANIMATIONS */
+.phase-card {
+    animation: slideInUp 0.6s ease forwards;
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }

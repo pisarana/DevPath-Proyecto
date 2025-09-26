@@ -5,6 +5,9 @@ document.addEventListener('DOMContentLoaded', function () {
     // LIMPIAR COMPLETAMENTE al cargar login
     sessionStorage.clear();
 
+    // Inicializar usuarios demo como fallback
+    initializeDemoUsers();
+
     // Login form
     document.getElementById('loginForm').addEventListener('submit', handleLogin);
 
@@ -12,7 +15,21 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('registerForm').addEventListener('submit', handleRegister);
 });
 
-// LOGIN SOLO CON BACKEND
+function initializeDemoUsers() {
+    if (!localStorage.getItem('devpath_users')) {
+        const demoUsers = [
+            {
+                email: 'demo@devpath.com',
+                password: '123456',
+                nombre: 'Misael Challco'
+            }
+        ];
+        localStorage.setItem('devpath_users', JSON.stringify(demoUsers));
+        console.log('Usuarios demo inicializados como fallback');
+    }
+}
+
+// LOGIN CON BACKEND
 async function handleLogin(e) {
     e.preventDefault();
 
@@ -28,15 +45,14 @@ async function handleLogin(e) {
         return;
     }
 
+    // Validar formato de email
     if (!isValidEmail(email)) {
         showError('error-message', 'Por favor ingresa un email válido');
         return;
     }
 
-    // Mostrar loading
-    showLoading('error-message', 'Iniciando sesión...');
-
     try {
+        // LLAMAR AL BACKEND
         const response = await fetch(`${API_BASE_URL}/auth/login`, {
             method: 'POST',
             headers: {
@@ -51,7 +67,7 @@ async function handleLogin(e) {
         const data = await response.json();
 
         if (response.ok && data.token) {
-            // Login exitoso
+            // Login exitoso con backend
             const userData = {
                 email: data.email,
                 nombre: data.nombre,
@@ -61,23 +77,51 @@ async function handleLogin(e) {
             };
 
             sessionStorage.setItem('user_session', JSON.stringify(userData));
-            showSuccess('error-message', '✅ Login exitoso! Redirigiendo...');
-            
+
+            showSuccess('error-message', 'Login exitoso! Redirigiendo...');
             setTimeout(() => {
                 window.location.href = 'cuestionario.html';
             }, 1000);
         } else {
-            // Error específico del backend
-            showError('error-message', data.message || 'Credenciales incorrectas');
+            // Error del backend, intentar con localStorage como fallback
+            handleLoginFallback(email, password);
         }
 
     } catch (error) {
-        console.error('Error de conexión:', error);
-        showError('error-message', 'Error de conexión. Verifica tu internet e intenta nuevamente.');
+        console.error('Error conectando al backend:', error);
+        // Fallback a localStorage si no hay conexión
+        handleLoginFallback(email, password);
     }
 }
 
-// REGISTRO SOLO CON BACKEND
+// FALLBACK A LOCALSTORAGE
+function handleLoginFallback(email, password) {
+    console.log('Usando fallback localStorage');
+
+    const users = JSON.parse(localStorage.getItem('devpath_users') || '[]');
+    const user = users.find(u => u.email === email && u.password === password);
+
+    if (user) {
+        const userData = {
+            email: user.email,
+            nombre: user.nombre,
+            loginTime: new Date().toISOString(),
+            token: 'demo_token_' + Date.now(),
+            source: 'localStorage'
+        };
+
+        sessionStorage.setItem('user_session', JSON.stringify(userData));
+
+        showSuccess('error-message', 'Login exitoso (modo local)! Redirigiendo...');
+        setTimeout(() => {
+            window.location.href = 'cuestionario.html';
+        }, 1000);
+    } else {
+        showError('error-message', 'Credenciales incorrectas. Intenta con demo@devpath.com / 123456');
+    }
+}
+
+// REGISTRO CON BACKEND
 async function handleRegister(e) {
     e.preventDefault();
 
@@ -110,10 +154,8 @@ async function handleRegister(e) {
         return;
     }
 
-    // Mostrar loading
-    showLoading('register-error-message', 'Creando cuenta...');
-
     try {
+        // LLAMAR AL BACKEND
         const response = await fetch(`${API_BASE_URL}/auth/register`, {
             method: 'POST',
             headers: {
@@ -129,24 +171,50 @@ async function handleRegister(e) {
         const data = await response.json();
 
         if (response.ok && data.token) {
-            showSuccess('register-error-message', '✅ Cuenta creada exitosamente!');
+            // Registro exitoso
+            showSuccess('register-error-message', 'Cuenta creada exitosamente! Redirigiendo...');
             setTimeout(() => {
                 showLoginForm();
                 // Pre-llenar el email en el login
                 document.querySelector('#loginForm input[type="email"]').value = email;
-                showSuccess('error-message', 'Ahora puedes iniciar sesión');
             }, 1500);
         } else {
-            showError('register-error-message', data.message || 'Error al crear la cuenta');
+            showError('register-error-message', data.message || 'Error al registrar usuario');
         }
 
     } catch (error) {
-        console.error('Error de conexión:', error);
-        showError('register-error-message', 'Error de conexión. Verifica tu internet e intenta nuevamente.');
+        console.error('Error conectando al backend:', error);
+        // Fallback a localStorage
+        handleRegisterFallback(nombre, email, password);
     }
 }
 
-// FUNCIONES DE UI
+// FALLBACK REGISTRO A LOCALSTORAGE
+function handleRegisterFallback(nombre, email, password) {
+    console.log('Usando fallback localStorage para registro');
+
+    const users = JSON.parse(localStorage.getItem('devpath_users') || '[]');
+    if (users.find(u => u.email === email)) {
+        showError('register-error-message', 'Ya existe una cuenta con este email');
+        return;
+    }
+
+    users.push({
+        email: email,
+        password: password,
+        nombre: nombre
+    });
+
+    localStorage.setItem('devpath_users', JSON.stringify(users));
+
+    showSuccess('register-error-message', 'Cuenta creada exitosamente (modo local)! Ahora puedes iniciar sesión');
+    setTimeout(() => {
+        showLoginForm();
+        document.querySelector('#loginForm input[type="email"]').value = email;
+    }, 1500);
+}
+
+// RESTO DE FUNCIONES (sin cambios)
 function showLoginForm() {
     document.getElementById('loginForm').style.display = 'block';
     document.getElementById('registerForm').style.display = 'none';
@@ -171,13 +239,10 @@ function showError(elementId, message) {
     errorDiv.textContent = message;
     errorDiv.style.display = 'block';
     errorDiv.style.color = '#ff6b6b';
-    errorDiv.style.backgroundColor = '#ffebee';
-    errorDiv.style.padding = '10px';
-    errorDiv.style.borderRadius = '5px';
 
     setTimeout(() => {
         hideError(elementId);
-    }, 8000);
+    }, 5000);
 }
 
 function showSuccess(elementId, message) {
@@ -185,19 +250,6 @@ function showSuccess(elementId, message) {
     errorDiv.textContent = message;
     errorDiv.style.display = 'block';
     errorDiv.style.color = '#2ecc71';
-    errorDiv.style.backgroundColor = '#e8f5e8';
-    errorDiv.style.padding = '10px';
-    errorDiv.style.borderRadius = '5px';
-}
-
-function showLoading(elementId, message) {
-    const errorDiv = document.getElementById(elementId);
-    errorDiv.textContent = message;
-    errorDiv.style.display = 'block';
-    errorDiv.style.color = '#3498db';
-    errorDiv.style.backgroundColor = '#e3f2fd';
-    errorDiv.style.padding = '10px';
-    errorDiv.style.borderRadius = '5px';
 }
 
 function hideError(elementId) {

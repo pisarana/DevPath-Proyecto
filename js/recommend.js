@@ -1,59 +1,117 @@
-// recommend.js - Generar recomendación dinámica
+// FUNCIONES PARA PÁGINA DE RECOMENDACIÓN
 document.addEventListener('DOMContentLoaded', function() {
-    generateRecommendation();
+    // Verificar sesión
+    const session = sessionStorage.getItem('user_session');
+    if (!session) {
+        alert('Sesión expirada. Redirigiendo al login...');
+        window.location.replace('index.html');
+        return;
+    }
+    
+    // Cargar resultado
+    const result = sessionStorage.getItem('quiz_result');
+    if (!result) {
+        alert('No se encontraron resultados. Redirigiendo al cuestionario...');
+        window.location.replace('cuestionario.html');
+        return;
+    }
+    
+    displayResult(JSON.parse(result));
 });
 
-function generateRecommendation() {
-    const track = sessionStorage.getItem('selected_track') || 'frontend';
+function displayResult(result) {
+    const track = result.trackInfo;
     
-    const trackData = {
-        frontend: {
-            title: 'Front-End Developer',
-            icon: '🌐',
-            description: 'Especialízate en crear interfaces de usuario atractivas y experiencias web interactivas. Tu perfil muestra una clara inclinación hacia el desarrollo visual y la experiencia del usuario, lo que te convierte en un candidato ideal para esta especialización.',
-            compatibility: '92%',
-            technologies: '8',
-            level: 'Óptimo'
-        },
-        backend: {
-            title: 'Back-End Developer',
-            icon: '⚙️',
-            description: 'Domina la lógica de negocio, bases de datos y APIs. Tu perfil técnico muestra afinidad por los sistemas robustos y la arquitectura de software, ideal para crear la columna vertebral de aplicaciones web.',
-            compatibility: '88%',
-            technologies: '12',
-            level: 'Excelente'
-        },
-        fullstack: {
-            title: 'Full-Stack Developer',
-            icon: '🚀',
-            description: 'Conviértete en un desarrollador completo dominando tanto frontend como backend. Tu versatilidad te permite trabajar en todos los aspectos del desarrollo web, siendo el perfil más demandado actualmente.',
-            compatibility: '85%',
-            technologies: '15',
-            level: 'Completo'
-        }
-    };
+    // 🎯 AGREGAR ESTA LÍNEA CRÍTICA:
+    localStorage.setItem('recommended_track', result.track);
+    console.log('✅ Track guardado en localStorage:', result.track);
     
-    const data = trackData[track];
+    // Actualizar elementos principales
+    document.getElementById('trackIcon').textContent = track.icon;
+    document.getElementById('trackTitle').textContent = track.title;
+    document.getElementById('trackDescription').textContent = track.description;
     
-    // Actualizar contenido dinámicamente
-    updateRecommendationContent(data);
+    // Actualizar stats
+    document.getElementById('compatibilityValue').textContent = track.compatibility + '%';
+    document.getElementById('technologiesCount').textContent = track.technologies.length;
+    document.getElementById('demandValue').textContent = track.demand;
+    
+    // Mostrar detalles adicionales
+    const detailsHTML = `
+        <h3 style="color: ${track.color}; margin-bottom: 15px;">💡 Sobre Tu Perfil</h3>
+        <p style="font-size: 16px; line-height: 1.6; margin-bottom: 20px;">${track.details}</p>
+        
+        <h3 style="color: ${track.color}; margin: 25px 0 15px 0;">💰 Oportunidades Laborales</h3>
+        <p style="font-size: 14px; line-height: 1.6; margin-bottom: 20px; background: #f8f9fa; padding: 15px; border-radius: 10px;">
+            <strong>Rango Salarial:</strong> ${track.salary}<br>
+            <strong>crecimiento del sector:</strong> ${track.growth}<br>
+            <strong>Empresas que contratan:</strong> ${track.companies.join(', ')}
+        </p>
+        
+        <h3 style="color: ${track.color}; margin: 25px 0 15px 0;">🛠️ Stack Tecnológico</h3>
+        <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px;">
+            ${track.technologies.map(tech => `
+                <span style="background: ${track.color}; color: white; padding: 8px 16px; border-radius: 20px; font-size: 14px;">
+                    ${tech}
+                </span>
+            `).join('')}
+        </div>
+        
+        <h3 style="color: ${track.color}; margin: 25px 0 15px 0;">🎯 Roles Típicos</h3>
+        <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+            ${track.roles.map(role => `
+                <div style="margin-bottom: 8px;">• ${role}</div>
+            `).join('')}
+        </div>
+        
+        <h3 style="color: ${track.color}; margin: 25px 0 15px 0;">📊 Análisis de Respuestas</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 15px;">
+            ${Object.entries(result.scores).map(([key, value]) => `
+                <div style="background: ${key === result.track ? track.color : '#f8f9fa'}; color: ${key === result.track ? 'white' : '#333'}; padding: 15px; border-radius: 10px; text-align: center;">
+                    <div style="font-size: 20px; font-weight: bold;">${value}</div>
+                    <div style="text-transform: capitalize; font-size: 12px;">${key.replace('_', ' ')}</div>
+                </div>
+            `).join('')}
+        </div>
+    `;
+    
+    document.getElementById('detailedResults').innerHTML = detailsHTML;
 }
 
-function updateRecommendationContent(data) {
-    // Actualizar icono y título
-    const icon = document.querySelector('.specialization-icon');
-    const title = document.querySelector('.specialization-title');
-    const description = document.querySelector('.specialization-description');
+// 🎯 AGREGAR ESTA FUNCIÓN PARA EL BOTÓN
+function goToLearningPath() {
+    const recommendedTrack = localStorage.getItem('recommended_track');
+    console.log('🗺️ Navegando a ruta con track:', recommendedTrack);
     
-    if (icon) icon.textContent = data.icon;
-    if (title) title.textContent = data.title;
-    if (description) description.textContent = data.description;
-    
-    // Actualizar estadísticas
-    const statValues = document.querySelectorAll('.stat-value');
-    if (statValues.length >= 3) {
-        statValues[0].textContent = data.compatibility;
-        statValues[1].textContent = data.technologies;
-        statValues[2].textContent = data.level;
+    if (recommendedTrack) {
+        window.location.href = 'ruta.html';
+    } else {
+        alert('⚠️ No hay recomendación disponible. Recarga la página.');
+        location.reload();
+    }
+}
+
+// FUNCIONES GLOBALES
+function logoutUser() {
+    if (confirm('¿Estás seguro de que deseas cerrar sesión?')) {
+        sessionStorage.clear();
+        localStorage.removeItem('selected_track');
+        localStorage.removeItem('recommended_track'); // 🎯 LIMPIAR TRACK RECOMENDADO
+        alert('✅ Sesión cerrada correctamente');
+        window.location.replace('index.html');
+    }
+}
+
+function confirmLogout() {
+    logoutUser();
+}
+
+function navigateProtected(page) {
+    const session = sessionStorage.getItem('user_session');
+    if (session) {
+        window.location.href = page;
+    } else {
+        alert('Sesión expirada. Redirigiendo al login...');
+        window.location.replace('index.html');
     }
 }
