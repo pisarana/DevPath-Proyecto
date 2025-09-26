@@ -1,14 +1,25 @@
-
-
 # 🚀 DevPath - Plataforma de Rutas de Aprendizaje Tecnológico
 
 <div align="center">
 
-![DevPath Banner](https://img.shields.io/badge/DevPath-Learning%20Platform-blue?style=for-the-badgeio/badge/🌐%20Live%20Demo-Visit%20Site-brightgreen?style=for-ttps://img.shields.io/badge/🔗%20Backend%20API-Render-blueviolet?style=for-
-[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5.6-brightgreen?style=flats://img.shields.io/badge/PostgreSQL-17shields.io/badge/Docker-Containerizeompleta para guiar el aprendizaje en desarrollo de software**  
-*Desarrollada como proyecto final para Marcos de Desarrollo Web*
+[![DevPath](https://img.shields.io/badge/DevPath-Learning%20Platformpisarana.github.io/DevPath-io/badge/🌐%20Demo%20Live-Visitar%20Sitio-00hields.io/badge/🔗%20Backend-Render%20API-8b5cf6?style=for-the  
 
-[🎯 **Ver Demo**](https://pisarana.github.io/DevPath-Proyecto/) -  [📖 **Documentación API**](https://devpath-proyecto.onrender.com/actuator/health) -  [🐳 **Docker Hub**](#docker)
+![Java](https://img.shields.io/badge/Java-17-f89820?style=flat&  
+
+
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5.6-6db33f?style=  
+
+
+
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-17.6-336791?style=flat&logo=Containerized-2496ed?style=flat  
+
+
+
+
+
+
+**Una plataforma completa para guiar el aprendizaje en desarrollo de software**  
+*Desarrollada como proyecto final para Marcos de Desarrollo Web - UTP*
 
 </div>
 
@@ -17,10 +28,10 @@
 ## 📋 **Tabla de Contenidos**
 
 - [✨ Características](#-características)
-- [🛠️ Tecnologías](#️-tecnologías)
-- [🎯 Funcionalidades](#-funcionalidades)
+- [🛠️ Stack Tecnológico](#️-stack-tecnológico)
+- [🎯 Funcionalidades Principales](#-funcionalidades-principales)
 - [🚀 Demo en Vivo](#-demo-en-vivo)
-- [⚙️ Instalación y Configuración](#️-instalación-y-configuración)
+- [⚙️ Instalación Local](#️-instalación-local)
 - [🐳 Docker](#-docker)
 - [📱 Uso de la Plataforma](#-uso-de-la-plataforma)
 - [🔧 API Endpoints](#-api-endpoints)
@@ -30,119 +41,135 @@
 
 ## ✨ **Características**
 
-🎓 **Rutas de Aprendizaje Estructuradas** - 7 tracks completos de desarrollo tecnológico  
-🧭 **Sistema de Navegación Intuitivo** - Progresa paso a paso en tu carrera  
-📊 **Quiz Interactivo** - Evalúa tus conocimientos y obtén recomendaciones personalizadas  
-🔐 **Autenticación JWT** - Sistema seguro de usuarios con Spring Security  
-📱 **Diseño Responsive** - Experiencia optimizada en todos los dispositivos  
-🚀 **Arquitectura Moderna** - Backend REST API + Frontend dinámico  
-🐳 **Containerizado** - Deployado con Docker en Render  
-📈 **Base de Datos Robusta** - PostgreSQL para almacenamiento persistente  
+- 🎓 **7 Rutas de Aprendizaje Completas** - Frontend, Backend, DevOps, FullStack, AI/ML, Cybersecurity, QA
+- 🧭 **Sistema de Navegación Intuitivo** - Progresa paso a paso con 35+ learning steps
+- 📊 **Quiz Interactivo Inteligente** - 12 preguntas con algoritmo de recomendación personalizada
+- 🔐 **Autenticación Segura JWT** - Sistema completo con Spring Security
+- 📱 **Diseño 100% Responsive** - Optimizado para móvil, tablet y desktop
+- 🚀 **API REST Robusta** - Backend con Spring Boot y PostgreSQL
+- 🐳 **Containerizado con Docker** - Deployado profesionalmente en Render
+- 📈 **Base de Datos Persistente** - PostgreSQL con data inicializada automáticamente
 
 ***
 
-## 🛠️ **Tecnologías**
+## 🛠️ **Stack Tecnológico**
 
 ### **Backend**
-![Spring Boot](https://img.shields.io/badge/Spring%20Boot-6DB33F?style=flat&logo=spring&/badge/Java-ED8B00?style=flat&logo=
-
-
-
-![Spring Security](https://img.shields.io/badge/Spring%20Security-6DB33F?style=flatimg.shields.io/badge/JWT-black
-
-
-
-
-
+```
+☕ Java 17                    🌱 Spring Boot 3.5.6
+🔒 Spring Security + JWT      🐘 PostgreSQL 17.6  
+📊 Hibernate/JPA              🏗️ Maven
+```
 
 ### **Frontend**
-![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&://img.shields.io/badge/CSS3-1572B6
+```
+🌐 HTML5 + CSS3              ⚡ JavaScript ES6+
+🎨 Responsive Design          📱 Mobile First
+```
 
+### **DevOps & Deploy**
+```
+🐳 Docker Multi-Stage        ☁️ Render Cloud
+📄 GitHub Pages              🔧 Git Workflow
+```
 
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColorOps & Deploy**
-![Docker](https://img.shields.io/badge/Docker-2496ED?style=flatio/badge/Render-46E3B7?style=flat/badge/GitHub%20Pages-222222?style=flat&logo=/badge/Git-F05032?style=flat&logo=gitFuncionalidades**
+***
+
+## 🎯 **Funcionalidades Principales**
 
 ### **🧭 Sistema de Rutas de Aprendizaje**
-```
-📚 Frontend Development    - HTML, CSS, JS, React, Vue
-💻 Backend Development     - Java, Spring, APIs, Microservicios  
-☁️  DevOps                 - Docker, CI/CD, Cloud, Kubernetes
-🔧 Full Stack             - Desarrollo completo end-to-end
-🤖 AI & Machine Learning   - Python, TensorFlow, Algoritmos
-🛡️  Cybersecurity         - Pentesting, Seguridad, Ethical Hacking
-🧪 Quality Assurance      - Testing, Automatización, Calidad
-```
+
+| Track | Tecnologías | Fases |
+|-------|-------------|--------|
+| 🎨 **Frontend** | HTML, CSS, JS, React, Vue | 5 fases - 35 pasos |
+| ⚙️ **Backend** | Java, Spring, APIs, Microservicios | 5 fases - 35 pasos |
+| ☁️ **DevOps** | Docker, CI/CD, Cloud, Kubernetes | 5 fases - 35 pasos |
+| 🔄 **Full Stack** | Desarrollo end-to-end completo | 5 fases - 35 pasos |
+| 🤖 **AI/ML** | Python, TensorFlow, Algoritmos | 5 fases - 35 pasos |
+| 🛡️ **Cybersecurity** | Pentesting, Ethical Hacking | 5 fases - 35 pasos |
+| 🧪 **QA Testing** | Automatización, Calidad | 5 fases - 35 pasos |
 
 ### **📊 Sistema de Quiz Inteligente**
-- **12 preguntas técnicas** curadas por expertos
-- **Algoritmo de recomendación** basado en respuestas
-- **Puntuación automática** con feedback instantáneo
-- **Recomendaciones personalizadas** de rutas de aprendizaje
+- ✅ **12 preguntas técnicas** curadas por expertos en desarrollo
+- 🎯 **Algoritmo de recomendación** basado en respuestas del usuario
+- 📈 **Puntuación automática** con feedback instantáneo
+- 💡 **Recomendaciones personalizadas** de rutas de aprendizaje
 
-### **🔐 Sistema de Autenticación**
-- **Registro/Login seguro** con encriptación de contraseñas
-- **JWT Tokens** para autenticación stateless
-- **Protección de rutas** con Spring Security
-- **Sesión persistente** en localStorage
+### **🔐 Sistema de Autenticación Completo**
+- 🔑 **Registro/Login seguro** con encriptación BCrypt
+- 🎟️ **JWT Tokens** para autenticación stateless
+- 🛡️ **Protección de rutas** con Spring Security
+- 💾 **Sesión persistente** en localStorage del navegador
 
 ***
 
 ## 🚀 **Demo en Vivo**
 
-### **🌐 Frontend**
-**URL:** [https://pisarana.github.io/DevPath-Proyecto/](https://pisarana.github.io/DevPath-Proyecto/)
+### **🌐 Aplicación Frontend**
+**URL:** **[https://pisarana.github.io/DevPath-Proyecto/](https://pisarana.github.io/DevPath-Proyecto/)**
 
-### **🔗 Backend API**
-**URL:** [https://devpath-proyecto.onrender.com](https://devpath-proyecto.onrender.com)
+### **🔗 API Backend**
+**URL:** **[https://devpath-proyecto.onrender.com](https://devpath-proyecto.onrender.com)**
 
-### **🧪 Endpoints de Prueba**
+### **🧪 Prueba los Endpoints**
 ```bash
-# Health Check
-GET https://devpath-proyecto.onrender.com/actuator/health
+# Health Check del sistema
+curl https://devpath-proyecto.onrender.com/actuator/health
 
-# Learning Tracks
-GET https://devpath-proyecto.onrender.com/learning/tracks
+# Obtener todas las rutas de aprendizaje
+curl https://devpath-proyecto.onrender.com/learning/tracks
 
-# Frontend Learning Path
-GET https://devpath-proyecto.onrender.com/learning/path/frontend
+# Obtener ruta específica de Frontend
+curl https://devpath-proyecto.onrender.com/learning/path/frontend
 
-# Quiz Questions
-GET https://devpath-proyecto.onrender.com/quiz/questions
+# Obtener preguntas del quiz
+curl https://devpath-proyecto.onrender.com/quiz/questions
 ```
 
 ***
 
-## ⚙️ **Instalación y Configuración**
+## ⚙️ **Instalación Local**
 
 ### **📋 Prerrequisitos**
-- Java 17+
-- Maven 3.8+
-- PostgreSQL 12+
-- Docker (opcional)
-- Git
-
-### **🚀 Instalación Local**
-
 ```bash
-# 1. Clonar el repositorio
+☕ Java 17+          📦 Maven 3.8+
+🐘 PostgreSQL 12+    🐳 Docker (opcional)
+📁 Git              🌐 Navegador web moderno
+```
+
+### **🚀 Configuración Paso a Paso**
+
+#### **1. Clonar el Repositorio**
+```bash
 git clone https://github.com/pisarana/DevPath-Proyecto.git
 cd DevPath-Proyecto
+```
 
-# 2. Configurar Backend
+#### **2. Configurar Base de Datos**
+```bash
+# Crear base de datos PostgreSQL
+createdb devpath_local
+
+# Configurar application.yml (backend/src/main/resources/)
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/devpath_local
+    username: tu_usuario
+    password: tu_password
+```
+
+#### **3. Ejecutar Backend**
+```bash
 cd backend
-cp src/main/resources/application.yml.example src/main/resources/application.yml
-# Editar application.yml con tu configuración de base de datos
-
-# 3. Instalar dependencias y ejecutar
 ./mvnw clean install
 ./mvnw spring-boot:run
 
-# 4. El backend estará disponible en: http://localhost:8080
+# Backend disponible en: http://localhost:8080
 ```
 
-### **🎨 Frontend**
+#### **4. Ejecutar Frontend**
 ```bash
-# Servir archivos estáticos (desde la raíz del proyecto)
+# Desde la raíz del proyecto
 # Con Python
 python -m http.server 3000
 
@@ -156,78 +183,84 @@ npx serve . -p 3000
 
 ## 🐳 **Docker**
 
-### **🏃‍♂️ Ejecución Rápida**
+### **🏃‍♂️ Ejecución con Docker Compose**
 ```bash
-# Ejecutar con Docker Compose (recomendado)
+# Clonar y ejecutar todo el stack
+git clone https://github.com/pisarana/DevPath-Proyecto.git
+cd DevPath-Proyecto
 docker-compose up --build
 
-# O construir manualmente
+# Aplicación disponible en:
+# Frontend: http://localhost:3000
+# Backend: http://localhost:8080
+```
+
+### **🔧 Build Manual**
+```bash
+# Construir imagen del backend
 cd backend
 docker build -t devpath-backend .
+
+# Ejecutar con variables de entorno
 docker run -p 8080:8080 \
-  -e DATABASE_URL=your_postgres_url \
-  -e JWT_SECRET=your_secret \
+  -e DATABASE_URL=postgresql://user:pass@host:5432/db \
+  -e JWT_SECRET=tu-jwt-secret-seguro \
   devpath-backend
 ```
 
-### **📦 Multi-Stage Build**
-El Dockerfile utiliza **multi-stage build** para optimizar el tamaño de la imagen:
-- **Stage 1:** Compilación con Maven
-- **Stage 2:** Runtime con JRE (imagen final ~200MB)
-
----
+***
 
 ## 📱 **Uso de la Plataforma**
 
-### **1. 🎯 Evalúa tu Nivel**
-- Completa el quiz de 12 preguntas
-- Recibe una puntuación automática
-- Obtén recomendaciones personalizadas
+### **1. 🎯 Evalúa tu Nivel Actual**
+- Completa el **quiz de 12 preguntas técnicas**
+- Recibe una **puntuación automática** del 0 al 100%
+- Obtén **recomendaciones personalizadas** basadas en tus respuestas
 
-### **2. 🧭 Explora las Rutas**
-- Navega por 7 tracks de desarrollo
-- Cada ruta tiene 5 fases estructuradas
-- 35+ pasos de aprendizaje detallados
+### **2. 🧭 Explora las Rutas de Aprendizaje**
+- Navega por **7 tracks de desarrollo** diferentes
+- Cada ruta tiene **5 fases estructuradas** de aprendizaje
+- Más de **35 pasos detallados** con recursos específicos
 
-### **3. 📈 Sigue tu Progreso**
-- Sistema de autenticación para guardar progreso
-- Interfaz intuitiva para navegación
-- Recomendaciones adaptativas
+### **3. 📈 Registra tu Progreso**
+- **Crea tu cuenta** para guardar tu progreso
+- **Autenticación segura** con JWT
+- **Interfaz intuitiva** para navegación fluida
 
 ***
 
 ## 🔧 **API Endpoints**
 
 ### **🔐 Autenticación**
-```http
-POST /auth/register    # Registro de usuario
-POST /auth/login       # Iniciar sesión
-GET  /auth/test        # Verificar autenticación
-```
+| Método | Endpoint | Descripción |
+|--------|----------|-------------|
+| `POST` | `/auth/register` | Registro de nuevo usuario |
+| `POST` | `/auth/login` | Iniciar sesión |
+| `GET` | `/auth/test` | Verificar autenticación |
 
 ### **📚 Learning Paths**
-```http
-GET  /learning/tracks              # Todos los tracks
-GET  /learning/path/{trackName}    # Ruta específica
-GET  /tracks                       # Lista básica de tracks
-```
+| Método | Endpoint | Descripción |
+|--------|----------|-------------|
+| `GET` | `/learning/tracks` | Obtener todos los tracks |
+| `GET` | `/learning/path/{trackName}` | Obtener ruta específica |
+| `GET` | `/tracks` | Lista básica de tracks |
 
-### **📊 Quiz System**
-```http
-GET  /quiz/questions    # Obtener preguntas
-POST /quiz/submit       # Enviar respuestas (requiere auth)
-```
+### **📊 Sistema de Quiz**
+| Método | Endpoint | Descripción |
+|--------|----------|-------------|
+| `GET` | `/quiz/questions` | Obtener preguntas del quiz |
+| `POST` | `/quiz/submit` | Enviar respuestas (auth requerida) |
 
 ### **💡 Recomendaciones**
-```http
-GET  /recommendations/quiz/{score}  # Recomendaciones por score
-```
+| Método | Endpoint | Descripción |
+|--------|----------|-------------|
+| `GET` | `/recommendations/quiz/{score}` | Recomendaciones por puntuación |
 
-### **🏥 Health & Monitoring**
-```http
-GET  /actuator/health   # Estado de la aplicación
-GET  /actuator/info     # Información del sistema
-```
+### **🏥 Monitoreo**
+| Método | Endpoint | Descripción |
+|--------|----------|-------------|
+| `GET` | `/actuator/health` | Estado de la aplicación |
+| `GET` | `/actuator/info` | Información del sistema |
 
 ***
 
@@ -235,13 +268,13 @@ GET  /actuator/info     # Información del sistema
 
 <div align="center">
 
-### **Misael Challco**
-*Estudiante de Ingeniería de Software | UTP*  
-*Especialista en Sistemas Mainframe & Desarrollo Full Stack*
+### **Misael Challco**  
+*🎓 Estudiante de Ingeniería de Software - UTP*  
+*💼 Especialista en Sistemas Mainframe & Full Stack Development*
 
-[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-mg.shields.io/badge/Email-D14836?style=for-the-badgeps://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor🎯 Experiencia:**  
-Junior Programmer → Switch Analyst | COBOL/AS400 → Spring Boot  
-**🚀 Visión:** Liderando la nueva generación de desarrolladores
+[![GitHub](https://img.shields.io/badge/GitHub-333333?g.shields.io/badge/Email-ea**🚀 Journey:** Junior Programmer → Switch Analyst  
+**💻 Tech:** COBOL/AS400 → Spring Boot & Modern Web  
+**🎯 Vision:** Liderando la nueva generación de desarrolladores
 
 </div>
 
@@ -251,15 +284,18 @@ Junior Programmer → Switch Analyst | COBOL/AS400 → Spring Boot
 
 ### **🌟 ¡Gracias por visitar DevPath!**
 
-**Si este proyecto te ha sido útil, dale una ⭐ y compártelo con otros desarrolladores**
+**Si este proyecto te parece útil, dale una ⭐ y compártelo con otros desarrolladores**
 
-![Visitor Badge](https://visitor-badge.laobi.icu/badge?page_id=pisarana.Dev/github/stars/pisarana/DevPath-Proyecto?style=socialado con ❤️ para la comunidad de desarrolladores**
+![Visitors](https://visitor-badge.laobi.icu/badge?page_id=pisarana.DevPath-Path-Proyecto?style=flat&colorshields.io/github/forks/pisarana/DevPath-Proyecto?style=flat&color=
+
+**Desarrollado con ❤️ para la comunidad de desarrolladores peruanos**
+
+---
+
+**📅 Última actualización:** Septiembre 2025  
+**📄 Licencia:** MIT License  
+**🏫 Universidad:** Universidad Tecnológica del Perú (UTP)  
+**📚 Curso:** Marcos de Desarrollo Web
 
 </div>
 
-***
-
-**🔄 Última actualización:** Septiembre 2025  
-**📄 Licencia:** MIT  
-**🏫 Universidad:** Universidad Tecnológica del Perú (UTP)  
-**📚 Materia:** Marcos de Desarrollo Web
