@@ -68,7 +68,7 @@ jwt:
 server:
   port: ${PORT:8080}
   servlet:
-    context-path: /  # SIN /api en producción
+    context-path: /api  # SIN /api en producción
 
 logging:
   level:

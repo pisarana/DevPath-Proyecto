@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,7 +11,7 @@
     <div class="container">
         <div class="header">
             <h1>Cuestionario de Orientación</h1>
-            <p>Pregunta 3 de 5</p>
+            <p id="questionCounter">Pregunta 1 de 7</p>
 
             <!-- BOTÓN DE LOGOUT VISIBLE -->
             <div style="position: absolute; top: 20px; right: 20px;">
@@ -34,18 +33,18 @@
         </div>
 
         <div class="progress-bar">
-            <div class="progress-fill"></div>
+            <div class="progress-fill" id="progressBar"></div>
         </div>
 
         <div class="question-card">
-            <div class="question-icon">🧠</div>
-            <h2 class="question-title">¿Qué herramientas te llaman más la atención?</h2>
+            <div class="question-icon" id="questionIcon">🧠</div>
+            <h2 class="question-title" id="questionTitle">Cargando pregunta...</h2>
 
-            <div class="options">
+            <div class="options" id="optionsContainer">
                 <!-- Las opciones se generarán automáticamente por JavaScript -->
             </div>
 
-            <div class="navigation">
+            <div class="navigation" id="navigationButtons">
                 <a href="#" onclick="confirmLogout()" class="btn btn-secondary">← Volver al Login</a>
                 <span></span>
             </div>
@@ -70,14 +69,9 @@
         // FUNCIONES GLOBALES PARA LOGOUT
         function logoutUser() {
             if (confirm('¿Estás seguro de que deseas cerrar sesión?')) {
-                // Limpiar almacenamiento
                 sessionStorage.clear();
                 localStorage.removeItem('selected_track');
-
-                // Mensaje de confirmación
                 alert('✅ Sesión cerrada correctamente');
-
-                // Redirigir al login
                 window.location.replace('index.html');
             }
         }
@@ -97,5 +91,4 @@
         }
     </script>
 </body>
-
 </html>
