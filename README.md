@@ -2,21 +2,6 @@
 
 <div align="center">
 
-[![DevPath](https://img.shields.io/badge/DevPath-Learning%20Platformpisarana.github.io/DevPath-io/badge/🌐%20Demo%20Live-Visitar%20Sitio-00hields.io/badge/🔗%20Backend-Render%20API-8b5cf6?style=for-the  
-
-![Java](https://img.shields.io/badge/Java-17-f89820?style=flat&  
-
-
-![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5.6-6db33f?style=  
-
-
-
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-17.6-336791?style=flat&logo=Containerized-2496ed?style=flat  
-
-
-
-
-
 
 **Una plataforma completa para guiar el aprendizaje en desarrollo de software**  
 *Desarrollada como proyecto final para Marcos de Desarrollo Web - UTP*
@@ -272,7 +257,7 @@ docker run -p 8080:8080 \
 *🎓 Estudiante de Ingeniería de Software - UTP*  
 *💼 Especialista en Sistemas Mainframe & Full Stack Development*
 
-[![GitHub](https://img.shields.io/badge/GitHub-333333?g.shields.io/badge/Email-ea**🚀 Journey:** Junior Programmer → Switch Analyst  
+🚀 Journey:** Junior Programmer → Switch Analyst  
 **💻 Tech:** COBOL/AS400 → Spring Boot & Modern Web  
 **🎯 Vision:** Liderando la nueva generación de desarrolladores
 
@@ -286,7 +271,7 @@ docker run -p 8080:8080 \
 
 **Si este proyecto te parece útil, dale una ⭐ y compártelo con otros desarrolladores**
 
-![Visitors](https://visitor-badge.laobi.icu/badge?page_id=pisarana.DevPath-Path-Proyecto?style=flat&colorshields.io/github/forks/pisarana/DevPath-Proyecto?style=flat&color=
+
 
 **Desarrollado con ❤️ para la comunidad de desarrolladores peruanos**
 
