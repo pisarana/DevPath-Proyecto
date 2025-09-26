@@ -19,6 +19,9 @@ spring:
 jwt:
   secret: ${JWT_SECRET}
   expiration: 86400000
+app:
+  cors:
+    allowed-origins: ${CORS_ORIGINS:https://pisarana.github.io}
 
 server:
   port: ${PORT:8080}
@@ -29,3 +32,12 @@ logging:
   level:
     com.devpath: INFO
     root: INFO
+# ACTUATOR CONFIGURATION
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: when-authorized
