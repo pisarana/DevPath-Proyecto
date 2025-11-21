@@ -1,4 +1,4 @@
-// CONFIGURACIÓN API DESA PROC
+// CONFIGURACIÓN API
 const API_BASE_URL = 'http://localhost:8080/api';
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -8,6 +8,9 @@ document.addEventListener('DOMContentLoaded', function () {
     // Inicializar usuarios demo como fallback
     initializeDemoUsers();
 
+    // ✨ CARGAR CIUDADES
+    cargarCiudades();
+
     // Login form
     document.getElementById('loginForm').addEventListener('submit', handleLogin);
 
@@ -15,13 +18,74 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('registerForm').addEventListener('submit', handleRegister);
 });
 
+// ✨ FUNCIÓN PARA CARGAR CIUDADES
+async function cargarCiudades() {
+    try {
+        const response = await fetch(`${API_BASE_URL}/ciudades`);
+        
+        if (response.ok) {
+            const ciudades = await response.json();
+            const selectCiudad = document.getElementById('register-ciudad');
+            
+            if (selectCiudad) {
+                selectCiudad.innerHTML = '<option value="">Seleccione una ciudad</option>';
+                
+                ciudades.forEach(ciudad => {
+                    const option = document.createElement('option');
+                    option.value = ciudad.id;
+                    option.textContent = `${ciudad.nombre} - ${ciudad.departamento}`;
+                    selectCiudad.appendChild(option);
+                });
+                
+                console.log(`✅ ${ciudades.length} ciudades cargadas desde backend`);
+            }
+        } else {
+            console.warn('No se pudieron cargar ciudades desde backend, usando lista local');
+            cargarCiudadesLocal();
+        }
+    } catch (error) {
+        console.error('Error conectando con API de ciudades:', error);
+        cargarCiudadesLocal();
+    }
+}
+
+// ✨ FALLBACK - CARGAR CIUDADES LOCALES
+function cargarCiudadesLocal() {
+    const ciudadesLocales = [
+        { id: 1, nombre: 'Lima', departamento: 'Lima' },
+        { id: 2, nombre: 'Arequipa', departamento: 'Arequipa' },
+        { id: 3, nombre: 'Cusco', departamento: 'Cusco' },
+        { id: 4, nombre: 'Trujillo', departamento: 'La Libertad' },
+        { id: 5, nombre: 'Chiclayo', departamento: 'Lambayeque' },
+        { id: 6, nombre: 'Piura', departamento: 'Piura' },
+        { id: 7, nombre: 'Iquitos', departamento: 'Loreto' },
+        { id: 8, nombre: 'Huancayo', departamento: 'Junín' }
+    ];
+    
+    const selectCiudad = document.getElementById('register-ciudad');
+    if (selectCiudad) {
+        selectCiudad.innerHTML = '<option value="">Seleccione una ciudad</option>';
+        
+        ciudadesLocales.forEach(ciudad => {
+            const option = document.createElement('option');
+            option.value = ciudad.id;
+            option.textContent = `${ciudad.nombre} - ${ciudad.departamento}`;
+            selectCiudad.appendChild(option);
+        });
+        
+        console.log('✅ Ciudades locales cargadas como fallback');
+    }
+}
+
 function initializeDemoUsers() {
     if (!localStorage.getItem('devpath_users')) {
         const demoUsers = [
             {
                 email: 'demo@devpath.com',
                 password: '123456',
-                nombre: 'Misael Challco'
+                nombre: 'Misael Challco',
+                dni: '12345678',
+                ciudadId: 1
             }
         ];
         localStorage.setItem('devpath_users', JSON.stringify(demoUsers));
@@ -121,20 +185,21 @@ function handleLoginFallback(email, password) {
     }
 }
 
-// REGISTRO CON BACKEND
+// ✨ REGISTRO CON BACKEND (ACTUALIZADO CON DNI Y CIUDAD)
 async function handleRegister(e) {
     e.preventDefault();
 
     const form = e.target;
-    const nombre = form.querySelector('input[type="text"]').value.trim();
-    const email = form.querySelector('input[type="email"]').value.trim();
-    const password = form.querySelectorAll('input[type="password"]')[0].value.trim();
-    const confirmPassword = form.querySelectorAll('input[type="password"]')[1].value.trim();
+    const nombre = document.getElementById('register-nombre').value.trim();
+    const email = document.getElementById('register-email').value.trim();
+    const password = document.getElementById('register-password').value.trim();
+    const dni = document.getElementById('register-dni').value.trim();
+    const ciudadId = document.getElementById('register-ciudad').value;
 
     hideError('register-error-message');
 
-    // Validaciones
-    if (!nombre || !email || !password || !confirmPassword) {
+    // Validaciones básicas
+    if (!nombre || !email || !password || !dni || !ciudadId) {
         showError('register-error-message', 'Por favor completa todos los campos');
         return;
     }
@@ -144,13 +209,14 @@ async function handleRegister(e) {
         return;
     }
 
-    if (password !== confirmPassword) {
-        showError('register-error-message', 'Las contraseñas no coinciden');
+    if (password.length < 6) {
+        showError('register-error-message', 'La contraseña debe tener al menos 6 caracteres');
         return;
     }
 
-    if (password.length < 6) {
-        showError('register-error-message', 'La contraseña debe tener al menos 6 caracteres');
+    // ✨ Validar DNI
+    if (!/^[0-9]{8}$/.test(dni)) {
+        showError('register-error-message', 'El DNI debe tener exactamente 8 dígitos numéricos');
         return;
     }
 
@@ -164,7 +230,9 @@ async function handleRegister(e) {
             body: JSON.stringify({
                 nombre: nombre,
                 email: email,
-                password: password
+                password: password,
+                dni: dni,
+                ciudadId: parseInt(ciudadId)
             })
         });
 
@@ -172,7 +240,7 @@ async function handleRegister(e) {
 
         if (response.ok && data.token) {
             // Registro exitoso
-            showSuccess('register-error-message', 'Cuenta creada exitosamente! Redirigiendo...');
+            showSuccess('register-error-message', '✅ Cuenta creada exitosamente! Redirigiendo...');
             setTimeout(() => {
                 showLoginForm();
                 // Pre-llenar el email en el login
@@ -185,29 +253,39 @@ async function handleRegister(e) {
     } catch (error) {
         console.error('Error conectando al backend:', error);
         // Fallback a localStorage
-        handleRegisterFallback(nombre, email, password);
+        handleRegisterFallback(nombre, email, password, dni, ciudadId);
     }
 }
 
-// FALLBACK REGISTRO A LOCALSTORAGE
-function handleRegisterFallback(nombre, email, password) {
+// ✨ FALLBACK REGISTRO A LOCALSTORAGE (ACTUALIZADO CON DNI Y CIUDAD)
+function handleRegisterFallback(nombre, email, password, dni, ciudadId) {
     console.log('Usando fallback localStorage para registro');
 
     const users = JSON.parse(localStorage.getItem('devpath_users') || '[]');
+    
+    // Validar email duplicado
     if (users.find(u => u.email === email)) {
         showError('register-error-message', 'Ya existe una cuenta con este email');
+        return;
+    }
+
+    // ✨ Validar DNI duplicado
+    if (users.find(u => u.dni === dni)) {
+        showError('register-error-message', 'Ya existe una cuenta con este DNI');
         return;
     }
 
     users.push({
         email: email,
         password: password,
-        nombre: nombre
+        nombre: nombre,
+        dni: dni,
+        ciudadId: parseInt(ciudadId)
     });
 
     localStorage.setItem('devpath_users', JSON.stringify(users));
 
-    showSuccess('register-error-message', 'Cuenta creada exitosamente (modo local)! Ahora puedes iniciar sesión');
+    showSuccess('register-error-message', '✅ Cuenta creada exitosamente (modo local)! Ahora puedes iniciar sesión');
     setTimeout(() => {
         showLoginForm();
         document.querySelector('#loginForm input[type="email"]').value = email;

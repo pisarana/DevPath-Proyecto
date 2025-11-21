@@ -6,21 +6,16 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
-public class RegisterRequest {
+public class UpdateProfileRequest {
     
     @NotBlank(message = "Nombre es obligatorio")
     @Size(min = 2, max = 50, message = "Nombre debe tener entre 2 y 50 caracteres")
     private String nombre;
     
-    @Email(message = "Email debe tener formato válido")  
+    @Email(message = "Email debe tener formato válido")
     @NotBlank(message = "Email es obligatorio")
     private String email;
     
-    @NotBlank(message = "Password es obligatorio")
-    @Size(min = 6, max = 100, message = "Password debe tener entre 6 y 100 caracteres")
-    private String password;
-    
-    // ✨ NUEVOS CAMPOS
     @NotBlank(message = "DNI es obligatorio")
     @Pattern(regexp = "^[0-9]{8}$", message = "DNI debe tener exactamente 8 dígitos")
     private String dni;
@@ -28,13 +23,15 @@ public class RegisterRequest {
     @NotNull(message = "Ciudad es obligatoria")
     private Long ciudadId;
     
-    // Constructores
-    public RegisterRequest() {}
+    // Contraseña opcional (solo si quiere cambiarla)
+    private String nuevaPassword;
     
-    public RegisterRequest(String nombre, String email, String password, String dni, Long ciudadId) {
+    // Constructores
+    public UpdateProfileRequest() {}
+    
+    public UpdateProfileRequest(String nombre, String email, String dni, Long ciudadId) {
         this.nombre = nombre;
         this.email = email;
-        this.password = password;
         this.dni = dni;
         this.ciudadId = ciudadId;
     }
@@ -46,18 +43,12 @@ public class RegisterRequest {
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
     
-    public String getPassword() { return password; }
-    public void setPassword(String password) { this.password = password; }
-    
-    // ✨ NUEVOS GETTERS/SETTERS
     public String getDni() { return dni; }
     public void setDni(String dni) { this.dni = dni; }
     
     public Long getCiudadId() { return ciudadId; }
     public void setCiudadId(Long ciudadId) { this.ciudadId = ciudadId; }
     
-    @Override
-    public String toString() {
-        return "RegisterRequest{nombre='" + nombre + "', email='" + email + "', dni='" + dni + "', ciudadId=" + ciudadId + "}";
-    }
+    public String getNuevaPassword() { return nuevaPassword; }
+    public void setNuevaPassword(String nuevaPassword) { this.nuevaPassword = nuevaPassword; }
 }

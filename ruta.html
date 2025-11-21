@@ -6,155 +6,147 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DevPath - Ruta de Aprendizaje</title>
     <link rel="stylesheet" href="styles/rutaStyle.css">
+    <link rel="stylesheet" href="styles/navbar.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
 </head>
 
-<header>
-    <!-- BOTÓN DE LOGOUT VISIBLE -->
-    <div style="position: absolute; top: 20px; right: 20px; z-index: 1000;">
-        <button onclick="logoutUser()" style="
-        background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); 
-        border: none;
-        color: white; 
-        padding: 8px 16px; 
-        border-radius: 20px; 
-        cursor: pointer;
-        font-size: 12px;
-        font-weight: 600;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
-    " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-            🚪 Salir
-        </button>
-    </div>
-</header>
 
 <body>
-    <!-- LOADING SPINNER -->
-    <div id="loadingSpinner" class="loading-container">
-        <div class="loading-spinner"></div>
-        <p>Cargando tu ruta personalizada...</p>
-    </div>
+    <div id="navbar-container"></div>
+    <div class="roadmap-container" style="margin-top: 80px;">
 
-    <div class="container" id="mainContent" style="display: none;">
-        <!-- HEADER DINÁMICO -->
-        <div class="roadmap-header">
-            <div class="roadmap-title">
-                <h1 id="trackTitle">Ruta de Aprendizaje</h1>
-                <p id="trackDescription">Tu camino hacia el éxito</p>
-                <div class="track-stats">
-                    <span class="stat-item">
-                        <strong id="totalDuration">0</strong> semanas
-                    </span>
-                    <span class="stat-item">
-                        <strong id="totalPhases">5</strong> fases
-                    </span>
-                    <span class="stat-item">
-                        <strong id="totalProjects">15+</strong> proyectos
-                    </span>
-                </div>
-            </div>
-            <div class="roadmap-icon" id="trackIcon">🌐</div>
+
+
+        <!-- LOADING SPINNER -->
+        <div id="loadingSpinner" class="loading-container">
+            <div class="loading-spinner"></div>
+            <p>Cargando tu ruta personalizada...</p>
         </div>
 
-        <!-- FILTROS DE FASES -->
-        <div class="filters">
-            <div class="filter-buttons">
-                <button class="filter-btn active" data-filter="all">Todas las fases</button>
-                <button class="filter-btn" data-filter="1">Fase 1: Fundamentos</button>
-                <button class="filter-btn" data-filter="2">Fase 2: Frameworks</button>
-                <button class="filter-btn" data-filter="3">Fase 3: Herramientas</button>
-                <button class="filter-btn" data-filter="4">Fase 4: Avanzado</button>
-                <button class="filter-btn" data-filter="5">Fase 5: Profesional</button>
-            </div>
-        </div>
-
-        <!-- FASES DINÁMICAS -->
-        <div class="phases-grid" id="phasesGrid">
-            <!-- LAS FASES SE GENERAN DINÁMICAMENTE -->
-        </div>
-
-        <!-- DETALLE DE FASE SELECCIONADA -->
-        <div class="phase-detail" id="phaseDetail" style="display: none;">
-            <div class="phase-detail-content">
-                <h3 id="phaseDetailTitle">Fase seleccionada</h3>
-                <p id="phaseDetailDescription">Descripción de la fase</p>
-                
-                <div class="detail-sections">
-                    <div class="detail-section skills-section">
-                        <h4>🎯 Habilidades a desarrollar</h4>
-                        <ul id="skillsList"></ul>
-                    </div>
-                    
-                    <div class="detail-section resources-section">
-                        <h4>📚 Recursos recomendados</h4>
-                        <ul id="resourcesList"></ul>
-                    </div>
-                    
-                    <div class="detail-section projects-section">
-                        <h4>🚀 Proyectos a construir</h4>
-                        <ul id="projectsList"></ul>
+        <div class="container" id="mainContent" style="display: none;">
+            <!-- HEADER DINÁMICO -->
+            <div class="roadmap-header">
+                <div class="roadmap-title">
+                    <h1 id="trackTitle">Ruta de Aprendizaje</h1>
+                    <p id="trackDescription">Tu camino hacia el éxito</p>
+                    <div class="track-stats">
+                        <span class="stat-item">
+                            <strong id="totalDuration">0</strong> semanas
+                        </span>
+                        <span class="stat-item">
+                            <strong id="totalPhases">5</strong> fases
+                        </span>
+                        <span class="stat-item">
+                            <strong id="totalProjects">15+</strong> proyectos
+                        </span>
                     </div>
                 </div>
+                <div class="roadmap-icon" id="trackIcon">🌐</div>
+            </div>
 
-                <div class="detail-actions">
-                    <button class="btn btn-primary" onclick="startPhase()">
-                        🚀 Comenzar esta Fase
+            <!-- FILTROS DE FASES -->
+            <div class="filters">
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">Todas las fases</button>
+                    <button class="filter-btn" data-filter="1">Fase 1: Fundamentos</button>
+                    <button class="filter-btn" data-filter="2">Fase 2: Frameworks</button>
+                    <button class="filter-btn" data-filter="3">Fase 3: Herramientas</button>
+                    <button class="filter-btn" data-filter="4">Fase 4: Avanzado</button>
+                    <button class="filter-btn" data-filter="5">Fase 5: Profesional</button>
+                </div>
+            </div>
+
+            <!-- FASES DINÁMICAS -->
+            <div class="phases-grid" id="phasesGrid">
+                <!-- LAS FASES SE GENERAN DINÁMICAMENTE -->
+            </div>
+
+            <!-- DETALLE DE FASE SELECCIONADA -->
+            <div class="phase-detail" id="phaseDetail" style="display: none;">
+                <div class="phase-detail-content">
+                    <h3 id="phaseDetailTitle">Fase seleccionada</h3>
+                    <p id="phaseDetailDescription">Descripción de la fase</p>
+
+                    <div class="detail-sections">
+                        <div class="detail-section skills-section">
+                            <h4>🎯 Habilidades a desarrollar</h4>
+                            <ul id="skillsList"></ul>
+                        </div>
+
+                        <div class="detail-section resources-section">
+                            <h4>📚 Recursos recomendados</h4>
+                            <ul id="resourcesList"></ul>
+                        </div>
+
+                        <div class="detail-section projects-section">
+                            <h4>🚀 Proyectos a construir</h4>
+                            <ul id="projectsList"></ul>
+                        </div>
+                    </div>
+
+                    <div class="detail-actions">
+                        <button class="btn btn-primary" onclick="startPhase()">
+                            🚀 Comenzar esta Fase
+                        </button>
+                        <button class="btn btn-secondary" onclick="closePhaseDetail()">
+                            ✕ Cerrar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ACCIÓN FINAL -->
+            <div class="action-card">
+                <h2>¿Listo para comenzar tu jornada?</h2>
+                <p id="actionDescription">Sigue esta ruta paso a paso y conviértete en un desarrollador exitoso. Cada
+                    fase
+                    te acerca más a tu objetivo profesional.</p>
+
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="startLearningPath()">
+                        🚀 Comenzar Mi Ruta
                     </button>
-                    <button class="btn btn-secondary" onclick="closePhaseDetail()">
-                        ✕ Cerrar
+                    <button class="btn btn-secondary" onclick="downloadRoadmap()">
+                        📥 Descargar Ruta
                     </button>
                 </div>
-            </div>
-        </div>
 
-        <!-- ACCIÓN FINAL -->
-        <div class="action-card">
-            <h2>¿Listo para comenzar tu jornada?</h2>
-            <p id="actionDescription">Sigue esta ruta paso a paso y conviértete en un desarrollador exitoso. Cada fase te acerca más a tu objetivo profesional.</p>
-            
-            <div class="action-buttons">
-                <button class="btn btn-primary" onclick="startLearningPath()">
-                    🚀 Comenzar Mi Ruta
-                </button>
-                <button class="btn btn-secondary" onclick="downloadRoadmap()">
-                    📥 Descargar Ruta
-                </button>
-            </div>
+                <div class="secondary-actions">
+                    <a href="cuestionario.html" class="btn-link">Hacer Nuevo Cuestionario</a>
+                    <a href="recomendacion.html" class="btn-link">Ver Recomendación</a>
+                </div>
 
-            <div class="secondary-actions">
-                <a href="cuestionario.html" class="btn-link">Hacer Nuevo Cuestionario</a>
-                <a href="recomendacion.html" class="btn-link">Ver Recomendación</a>
-            </div>
-
-            <!-- Enlaces de navegación PROTEGIDOS -->
-            <div class="demo-nav">
-                <p>Navegación (solo con sesión activa):</p>
-                <div>
-                    <a href="#" onclick="confirmLogout()">Login</a>
-                    <a href="#" onclick="navigateProtected('cuestionario.html')">Cuestionario</a>
-                    <a href="#" onclick="navigateProtected('recomendacion.html')">Recomendación</a>
-                    <a href="#" onclick="navigateProtected('ruta.html')" class="active">Ruta</a>
+                <!-- Enlaces de navegación PROTEGIDOS -->
+                <div class="demo-nav">
+                    <p>Navegación (solo con sesión activa):</p>
+                    <div>
+                        <a href="#" onclick="confirmLogout()">Login</a>
+                        <a href="#" onclick="navigateProtected('cuestionario.html')">Cuestionario</a>
+                        <a href="#" onclick="navigateProtected('recomendacion.html')">Recomendación</a>
+                        <a href="#" onclick="navigateProtected('ruta.html')" class="active">Ruta</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- ERROR STATE -->
-    <div id="errorState" class="error-container" style="display: none;">
-        <div class="error-content">
-            <h2>❌ Error al cargar la ruta</h2>
-            <p>No se pudo cargar tu ruta de aprendizaje personalizada.</p>
-            <button class="btn btn-primary" onclick="location.reload()">
-                🔄 Reintentar
-            </button>
-            <a href="recomendacion.html" class="btn btn-secondary">
-                ← Volver a Recomendación
-            </a>
+        <!-- ERROR STATE -->
+        <div id="errorState" class="error-container" style="display: none;">
+            <div class="error-content">
+                <h2>❌ Error al cargar la ruta</h2>
+                <p>No se pudo cargar tu ruta de aprendizaje personalizada.</p>
+                <button class="btn btn-primary" onclick="location.reload()">
+                    🔄 Reintentar
+                </button>
+                <a href="recomendacion.html" class="btn btn-secondary">
+                    ← Volver a Recomendación
+                </a>
+            </div>
         </div>
     </div>
-
     <!-- SCRIPTS -->
     <script src="js/sessions.js"></script>
+    <script src="/js/navbar.js"></script>
     <script src="js/roadmap.js"></script>
 </body>
 

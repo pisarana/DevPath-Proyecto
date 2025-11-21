@@ -3,6 +3,7 @@ package com.devpath.backend.config;
 import com.devpath.backend.entity.Question;
 import com.devpath.backend.entity.Track;
 import com.devpath.backend.entity.Usuario;
+import com.devpath.backend.entity.Ciudad;
 import com.devpath.backend.entity.LearningStep;
 import com.devpath.backend.repository.LearningStepRepository;
 import com.devpath.backend.repository.QuestionRepository;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import com.devpath.backend.repository.CiudadRepository;
 
 import java.util.List;
 import java.util.Map;
@@ -36,6 +38,9 @@ public class DataInitializer implements CommandLineRunner {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private CiudadRepository ciudadRepository;
     
     @Override
     public void run(String... args) throws Exception {
@@ -447,18 +452,24 @@ public class DataInitializer implements CommandLineRunner {
 
     
     private void initializeUsuarios() {
-        if (usuarioRepository.count() > 0) {
-            return;
-        }
-        
-        Usuario testUser = new Usuario();
-        testUser.setEmail("test@devpath.com");
-        testUser.setNombre("Usuario Test");
-        testUser.setPassword(passwordEncoder.encode("password"));
-        usuarioRepository.save(testUser);
-        
-        System.out.println("✅ Usuario de prueba creado: test@devpath.com / password");
-    }
+       if (usuarioRepository.count() > 0) {
+              return;
+       }
+       
+       // Obtener primera ciudad para usuario de prueba
+       Ciudad lima = ciudadRepository.findByNombre("Lima")
+              .orElseGet(() -> ciudadRepository.findAll().get(0));
+       
+       Usuario testUser = new Usuario();
+       testUser.setEmail("test@devpath.com");
+       testUser.setNombre("Usuario Test");
+       testUser.setPassword(passwordEncoder.encode("password"));
+       testUser.setDni("12345678");
+       testUser.setCiudad(lima);
+       usuarioRepository.save(testUser);
+       
+       System.out.println("✅ Usuario de prueba creado: test@devpath.com / password (DNI: 12345678, Ciudad: " + lima.getNombre() + ")");
+}
        private void initializeLearningSteps() throws Exception {
               if (learningStepRepository.count() > 0) {
                      return;

@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html lang="es">               
+<html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DevPath - Login</title>
     <link rel="stylesheet" href="styles/loginStyle.css">
 </head>
+
 <body>
     <div class="login-container">
         <div class="logo">
@@ -13,7 +15,7 @@
             <h1>DevPath</h1>
             <p>Encuentra tu especialización ideal</p>
         </div>
-        
+
         <!-- LOGIN FORM -->
         <form id="loginForm" style="display: block;">
             <div class="input-group">
@@ -35,18 +37,36 @@
 
         <!-- REGISTER FORM (OCULTO INICIALMENTE) -->
         <form id="registerForm" style="display: none;">
+            <!-- ✨ NOMBRE -->
             <div class="input-group">
-                <input type="text" class="input-field" placeholder="Nombre completo" required>
+                <input type="text" id="register-nombre" class="input-field" placeholder="Nombre completo" required>
             </div>
+
+            <!-- ✨ EMAIL -->
             <div class="input-group">
-                <input type="email" class="input-field" placeholder="Correo electrónico" required>
+                <input type="email" id="register-email" class="input-field" placeholder="Correo electrónico" required>
             </div>
+
+            <!-- ✨ CONTRASEÑA -->
             <div class="input-group">
-                <input type="password" class="input-field" placeholder="Contraseña" required>
+                <input type="password" id="register-password" class="input-field"
+                    placeholder="Contraseña (mínimo 6 caracteres)" required>
             </div>
+
+            <!-- ✨ DNI -->
             <div class="input-group">
-                <input type="password" class="input-field" placeholder="Confirmar contraseña" required>
+                <input type="text" id="register-dni" class="input-field" placeholder="DNI (8 dígitos)" maxlength="8"
+                    pattern="[0-9]{8}" required>
             </div>
+
+            <!-- ✨ CIUDAD -->
+            <div class="input-group">
+                <select id="register-ciudad" class="input-field" required>
+                    <option value="">Seleccione una ciudad</option>
+                </select>
+            </div>
+
+            <!-- BOTONES -->
             <div class="input-group">
                 <button type="submit" class="btn btn-primary">
                     Crear Cuenta
@@ -55,17 +75,26 @@
                     Ya tengo cuenta
                 </button>
             </div>
-            <div id="register-error-message" style="color: #ff6b6b; text-align: center; margin-top: 10px; display: none;"></div>
+
+            <div id="register-error-message"
+                style="color: #ff6b6b; text-align: center; margin-top: 10px; display: none;"></div>
         </form>
 
+
+
         <!-- Enlaces de navegación BLOQUEADOS desde login -->
-        <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.2);">
-            <p style="color: rgba(255,255,255,0.6); font-size: 14px; margin-bottom: 10px;">Vista previa de pantallas:</p>
+        <div
+            style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.2);">
+            <p style="color: rgba(255,255,255,0.6); font-size: 14px; margin-bottom: 10px;">Vista previa de pantallas:
+            </p>
             <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
                 <a href="index.html" style="color: #00d4ff; font-size: 12px; text-decoration: none;">Login</a>
-                <a href="#" onclick="blockNavigation('cuestionario.html')" style="color: rgba(255,255,255,0.6); font-size: 12px; text-decoration: none; cursor: pointer;">Cuestionario</a>
-                <a href="#" onclick="blockNavigation('recomendacion.html')" style="color: rgba(255,255,255,0.6); font-size: 12px; text-decoration: none; cursor: pointer;">Recomendación</a>
-                <a href="#" onclick="blockNavigation('ruta.html')" style="color: rgba(255,255,255,0.6); font-size: 12px; text-decoration: none; cursor: pointer;">Ruta</a>
+                <a href="#" onclick="blockNavigation('cuestionario.html')"
+                    style="color: rgba(255,255,255,0.6); font-size: 12px; text-decoration: none; cursor: pointer;">Cuestionario</a>
+                <a href="#" onclick="blockNavigation('recomendacion.html')"
+                    style="color: rgba(255,255,255,0.6); font-size: 12px; text-decoration: none; cursor: pointer;">Recomendación</a>
+                <a href="#" onclick="blockNavigation('ruta.html')"
+                    style="color: rgba(255,255,255,0.6); font-size: 12px; text-decoration: none; cursor: pointer;">Ruta</a>
             </div>
             <p style="color: rgba(255,255,255,0.4); font-size: 11px; margin-top: 8px; font-style: italic;">
                 🔒 Debes iniciar sesión para acceder a estas páginas
@@ -74,11 +103,12 @@
     </div>
 
     <script src="js/auth.js"></script>
-    
+
     <script>
-    function blockNavigation(page) {
-        alert('❌ Acceso denegado\n\nDebes iniciar sesión para acceder a ' + page.replace('.html', ''));
-    }
+        function blockNavigation(page) {
+            alert('❌ Acceso denegado\n\nDebes iniciar sesión para acceder a ' + page.replace('.html', ''));
+        }
     </script>
 </body>
+
 </html>

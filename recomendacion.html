@@ -1,91 +1,82 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DevPath - Tu Recomendación</title>
     <link rel="stylesheet" href="styles/recomendacionStyle.css">
+    <link rel="stylesheet" href="styles/navbar.css">
 </head>
+
 <body>
-    <div class="container">
-        <div class="recommendation-header">
-            <h1>¡Tu Recomendación Está Lista!</h1>
-            <p>Basado en tus respuestas, hemos encontrado tu especialización ideal en tecnología</p>
-            
-            <!-- BOTÓN DE LOGOUT VISIBLE -->
-            <div style="position: absolute; top: 20px; right: 20px;">
-                <button onclick="logoutUser()" style="
-                    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); 
-                    border: none;
-                    color: white; 
-                    padding: 8px 16px; 
-                    border-radius: 20px; 
-                    cursor: pointer;
-                    font-size: 12px;
-                    font-weight: 600;
-                    transition: all 0.3s ease;
-                    box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
-                " onmouseover="this.style.transform='scale(1.05)'" 
-                   onmouseout="this.style.transform='scale(1)'">
-                    🚪 Salir
-                </button>
+    <div id="navbar-container"></div>
+    <div class="recommendation-container" style="margin-top: 80px;">
+
+
+        <div class="container">
+            <div class="recommendation-header">
+                <h1>¡Tu Recomendación Está Lista!</h1>
+                <p>Basado en tus respuestas, hemos encontrado tu especialización ideal en tecnología</p>
+
             </div>
-        </div>
 
-        <div class="recommendation-card">
-            <div class="specialization-icon" id="trackIcon">🌐</div>
-            <h2 class="specialization-title" id="trackTitle">Cargando...</h2>
-            <p class="specialization-description" id="trackDescription">
-                Analizando tus respuestas...
-            </p>
+            <div class="recommendation-card">
+                <div class="specialization-icon" id="trackIcon">🌐</div>
+                <h2 class="specialization-title" id="trackTitle">Cargando...</h2>
+                <p class="specialization-description" id="trackDescription">
+                    Analizando tus respuestas...
+                </p>
 
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-icon compatibility">⭐</div>
-                    <div class="stat-title">Compatibilidad</div>
-                    <div class="stat-value" id="compatibilityValue">--</div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon compatibility">⭐</div>
+                        <div class="stat-title">Compatibilidad</div>
+                        <div class="stat-value" id="compatibilityValue">--</div>
+                    </div>
+                    <div class="stat-card technologies-stat">
+                        <div class="stat-icon technologies">📚</div>
+                        <div class="stat-title">Tecnologías</div>
+                        <div class="stat-value" id="technologiesCount">--</div>
+                    </div>
+                    <div class="stat-card level-stat">
+                        <div class="stat-icon level">✅</div>
+                        <div class="stat-title">Demanda</div>
+                        <div class="stat-value" id="demandValue">--</div>
+                    </div>
                 </div>
-                <div class="stat-card technologies-stat">
-                    <div class="stat-icon technologies">📚</div>
-                    <div class="stat-title">Tecnologías</div>
-                    <div class="stat-value" id="technologiesCount">--</div>
+
+                <!-- DETALLES ADICIONALES -->
+                <div id="detailedResults" style="margin: 30px 0; text-align: left;">
+                    <!-- Se llenará dinámicamente -->
                 </div>
-                <div class="stat-card level-stat">
-                    <div class="stat-icon level">✅</div>
-                    <div class="stat-title">Demanda</div>
-                    <div class="stat-value" id="demandValue">--</div>
+
+                <div class="action-buttons">
+                    <<button class="btn btn-primary" onclick="goToLearningPath()">
+                        🗺️ Ver Ruta de Aprendizaje
+                        </button>
+
+                        <a href="cuestionario.html" class="btn btn-secondary">
+                            Repetir Cuestionario
+                        </a>
                 </div>
-            </div>
 
-            <!-- DETALLES ADICIONALES -->
-            <div id="detailedResults" style="margin: 30px 0; text-align: left;">
-                <!-- Se llenará dinámicamente -->
-            </div>
-
-            <div class="action-buttons">
-                <<button class="btn btn-primary" onclick="goToLearningPath()">
-                    🗺️ Ver Ruta de Aprendizaje
-                </button>
-                
-                <a href="cuestionario.html" class="btn btn-secondary">
-                    Repetir Cuestionario
-                </a>
-            </div>
-
-            <!-- Enlaces de navegación PROTEGIDOS -->
-            <div class="demo-nav">
-                <p>Navegación (solo con sesión activa):</p>
-                <div>
-                    <a href="#" onclick="confirmLogout()">Login</a>
-                    <a href="#" onclick="navigateProtected('cuestionario.html')">Cuestionario</a>
-                    <a href="recomendacion.html" class="active">Recomendación</a>
-                    <a href="#" onclick="navigateProtected('ruta.html')">Ruta</a>
+                <!-- Enlaces de navegación PROTEGIDOS -->
+                <div class="demo-nav">
+                    <p>Navegación (solo con sesión activa):</p>
+                    <div>
+                        <a href="#" onclick="confirmLogout()">Login</a>
+                        <a href="#" onclick="navigateProtected('cuestionario.html')">Cuestionario</a>
+                        <a href="recomendacion.html" class="active">Recomendación</a>
+                        <a href="#" onclick="navigateProtected('ruta.html')">Ruta</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
     <script src="js/sessions.js"></script>
+    <script src="js/navbar.js"></script>
     <script src="js/recommend.js"></script>
 </body>
+
 </html>

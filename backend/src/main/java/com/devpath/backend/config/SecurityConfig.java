@@ -21,56 +21,57 @@ import java.util.Arrays;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-    
+
     @Autowired
     private JwtAuthenticationFilter jwtAuthenticationFilter;
-    
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-    
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(AbstractHttpConfigurer::disable)
-            .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-            .authorizeHttpRequests(auth -> auth
-                    .requestMatchers("/auth/**").permitAll()
-                    .requestMatchers(HttpMethod.GET, "/quiz/questions").permitAll()
-                    .requestMatchers(HttpMethod.GET, "/quiz/tracks").permitAll()
-                    .requestMatchers("/quiz/result").authenticated()
-                    .requestMatchers("/quiz/my-**").authenticated()
-                    .requestMatchers("/learning/**").permitAll()  // ← AGREGAR ESTA LÍNEA
-                    .requestMatchers("/h2-console/**").permitAll()
-                    .requestMatchers("/error").permitAll()
-                    .anyRequest().authenticated()
-            );
-    
+                .csrf(AbstractHttpConfigurer::disable)
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/ciudades/**").permitAll() // ✨ AGREGAR ESTA LÍNEA
+                        .requestMatchers(HttpMethod.GET, "/quiz/questions").permitAll()
+                        .requestMatchers("/usuarios/ciudades").permitAll() // ✨ AGREGAR
+                        .requestMatchers("/usuarios/perfil").authenticated() // ✨ AGREGAR (requiere JWT)
+                        .requestMatchers(HttpMethod.GET, "/quiz/tracks").permitAll()
+                        .requestMatchers("/quiz/result").authenticated()
+                        .requestMatchers("/quiz/my-**").authenticated()
+                        .requestMatchers("/learning/**").permitAll() // ← AGREGAR ESTA LÍNEA
+                        .requestMatchers("/h2-console/**").permitAll()
+                        .requestMatchers("/error").permitAll()
+                        .anyRequest().authenticated());
+
         http.headers(headers -> headers.frameOptions().disable());
         return http.build();
     }
-    
+
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        
+
         configuration.setAllowedOriginPatterns(Arrays.asList(
-            "http://localhost:*",
-            "http://127.0.0.1:*", 
-            "https://*.github.io",
-            "https://pisarana.github.io"
-        ));
-        
+                "http://localhost:*",
+                "http://127.0.0.1:*",
+                "https://*.github.io",
+                "https://pisarana.github.io"));
+
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setAllowCredentials(true);
-        
+
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
-        
+
         return source;
     }
 }

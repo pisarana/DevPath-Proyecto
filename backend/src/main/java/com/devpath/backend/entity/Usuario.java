@@ -33,6 +33,14 @@ public class Usuario implements UserDetails {
     @Column(nullable = false)
     private String nombre;
     
+    // ✨ NUEVOS CAMPOS
+    @Column(unique = true, nullable = false, length = 8)
+    private String dni;
+    
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "ciudad_id", nullable = false)
+    private Ciudad ciudad;
+    
     @Column(name = "fecha_registro", nullable = false)
     private LocalDateTime fechaRegistro = LocalDateTime.now();
     
@@ -42,18 +50,20 @@ public class Usuario implements UserDetails {
     // Constructores
     public Usuario() {}
     
-    public Usuario(String email, String password, String nombre) {
+    public Usuario(String email, String password, String nombre, String dni, Ciudad ciudad) {
         this.email = email;
         this.password = password;
         this.nombre = nombre;
+        this.dni = dni;
+        this.ciudad = ciudad;
         this.fechaRegistro = LocalDateTime.now();
         this.activo = true;
     }
     
-    // Métodos de UserDetails
+    // Métodos de UserDetails (SIN CAMBIOS)
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.emptyList(); // Sin roles por ahora
+        return Collections.emptyList();
     }
     
     @Override
@@ -94,6 +104,13 @@ public class Usuario implements UserDetails {
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
     
+    // ✨ NUEVOS GETTERS/SETTERS
+    public String getDni() { return dni; }
+    public void setDni(String dni) { this.dni = dni; }
+    
+    public Ciudad getCiudad() { return ciudad; }
+    public void setCiudad(Ciudad ciudad) { this.ciudad = ciudad; }
+    
     public LocalDateTime getFechaRegistro() { return fechaRegistro; }
     public void setFechaRegistro(LocalDateTime fechaRegistro) { this.fechaRegistro = fechaRegistro; }
     
@@ -102,6 +119,6 @@ public class Usuario implements UserDetails {
     
     @Override
     public String toString() {
-        return "Usuario{id=" + id + ", email='" + email + "', nombre='" + nombre + "'}";
+        return "Usuario{id=" + id + ", email='" + email + "', nombre='" + nombre + "', dni='" + dni + "'}";
     }
 }

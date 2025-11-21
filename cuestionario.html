@@ -1,94 +1,64 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DevPath - Cuestionario</title>
     <link rel="stylesheet" href="styles/cuestionarioStyle.css">
+    <link rel="stylesheet" href="styles/navbar.css">
 </head>
 
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>Cuestionario de Orientación</h1>
-            <p id="questionCounter">Pregunta 1 de 7</p>
+    <div id="navbar-container"></div>
 
-            <!-- BOTÓN DE LOGOUT VISIBLE -->
-            <div style="position: absolute; top: 20px; right: 20px;">
-                <button onclick="logoutUser()" style="
-                    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); 
-                    border: none;
-                    color: white; 
-                    padding: 8px 16px; 
-                    border-radius: 20px; 
-                    cursor: pointer;
-                    font-size: 12px;
-                    font-weight: 600;
-                    transition: all 0.3s ease;
-                    box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
-                " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-                    🚪 Salir
-                </button>
-            </div>
-        </div>
+    <div class="quiz-container" style="margin-top: 80px;">
 
-        <div class="progress-bar">
-            <div class="progress-fill" id="progressBar"></div>
-        </div>
 
-        <div class="question-card">
-            <div class="question-icon" id="questionIcon">🧠</div>
-            <h2 class="question-title" id="questionTitle">Cargando pregunta...</h2>
+        <div class="container">
+            <div class="header">
+                <h1>Cuestionario de Orientación</h1>
+                <p id="questionCounter">Pregunta 1 de 7</p>
 
-            <div class="options" id="optionsContainer">
-                <!-- Las opciones se generarán automáticamente por JavaScript -->
+
             </div>
 
-            <div class="navigation" id="navigationButtons">
-                <a href="#" onclick="confirmLogout()" class="btn btn-secondary">← Volver al Login</a>
-                <span></span>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar"></div>
             </div>
 
-            <!-- Enlaces de navegación PROTEGIDOS -->
-            <div class="demo-nav">
-                <p>Navegación (solo con sesión activa):</p>
-                <div>
-                    <a href="#" onclick="confirmLogout()">Login</a>
-                    <a href="cuestionario.html" class="active">Cuestionario</a>
-                    <a href="#" onclick="navigateProtected('recomendacion.html')">Recomendación</a>
-                    <a href="#" onclick="navigateProtected('ruta.html')">Ruta</a>
+            <div class="question-card">
+                <div class="question-icon" id="questionIcon">🧠</div>
+                <h2 class="question-title" id="questionTitle">Cargando pregunta...</h2>
+
+                <div class="options" id="optionsContainer">
+                    <!-- Las opciones se generarán automáticamente por JavaScript -->
+                </div>
+
+                <div class="navigation" id="navigationButtons">
+                    <a href="#" onclick="confirmLogout()" class="btn btn-secondary">← Volver al Login</a>
+                    <span></span>
+                </div>
+
+                <!-- Enlaces de navegación PROTEGIDOS -->
+                <div class="demo-nav">
+                    <p>Navegación (solo con sesión activa):</p>
+                    <div>
+                        <a href="#" onclick="confirmLogout()">Login</a>
+                        <a href="cuestionario.html" class="active">Cuestionario</a>
+                        <a href="#" onclick="navigateProtected('recomendacion.html')">Recomendación</a>
+                        <a href="#" onclick="navigateProtected('ruta.html')">Ruta</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
     <script src="js/sessions.js"></script>
+
+    <script src="js/navbar.js"></script>
+
     <script src="js/quiz.js"></script>
 
-    <script>
-        // FUNCIONES GLOBALES PARA LOGOUT
-        function logoutUser() {
-            if (confirm('¿Estás seguro de que deseas cerrar sesión?')) {
-                sessionStorage.clear();
-                localStorage.removeItem('selected_track');
-                alert('✅ Sesión cerrada correctamente');
-                window.location.replace('index.html');
-            }
-        }
-
-        function confirmLogout() {
-            logoutUser();
-        }
-
-        function navigateProtected(page) {
-            const session = sessionStorage.getItem('user_session');
-            if (session) {
-                window.location.href = page;
-            } else {
-                alert('Sesión expirada. Redirigiendo al login...');
-                window.location.replace('index.html');
-            }
-        }
-    </script>
 </body>
+
 </html>
